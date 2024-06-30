@@ -8,18 +8,14 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Pegi</th>
+                <th>Titre</th>
+                <th>Contenue</th>
+                <th>Age</th>
                 <th>Genre</th>
-                <th>Price</th>
-                <th>Platform</th>
+                <th>Prix</th>
+                <th>Plateforme</th>
                 <th>Image</th>
-                <th>Release_date</th>
-                <th>Created_at</th>
-                <th>Update_at</th>
-                <th>actions</th>
+                <th>Date de sortie</th>
             </tr>
         </thead>
         <tbody>
@@ -34,8 +30,6 @@
                 <td>{{ game.platform }}</td>
                 <td>{{ game.image }}</td>
                 <td>{{ game.releaseDate ? game.releaseDate|date('Y-m-d') : '' }}</td>
-                <td>{{ game.createdAt ? game.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ game.updateAt ? game.updateAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_game_show', {'id': game.id}) }}">show</a>
                     <a href="{{ path('app_game_edit', {'id': game.id}) }}">edit</a>
