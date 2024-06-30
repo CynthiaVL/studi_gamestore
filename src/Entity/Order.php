@@ -24,8 +24,14 @@ class Order
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
-    #[ORM\OneToOne(inversedBy: 'order_game', cascade: ['persist', 'remove'])]
-    private ?Reservation $reservation = null;
+    #[ORM\Column]
+    private ?int $quantity = null;
+
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    private ?Game $game = null;
+
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    private ?Store $store = null;
 
     public function getId(): ?int
     {
@@ -68,14 +74,38 @@ class Order
         return $this;
     }
 
-    public function getReservation(): ?Reservation
+    public function getQuantity(): ?int
     {
-        return $this->reservation;
+        return $this->quantity;
     }
 
-    public function setReservation(?Reservation $reservation): static
+    public function setQuantity(int $quantity): static
     {
-        $this->reservation = $reservation;
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): static
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    public function getStore(): ?Store
+    {
+        return $this->store;
+    }
+
+    public function setStore(?Store $store): static
+    {
+        $this->store = $store;
 
         return $this;
     }

@@ -53,15 +53,16 @@ class Game
     private Collection $inventories;
 
     /**
-     * @var Collection<int, Reservation>
+     * @var Collection<int, Order>
      */
-    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'game')]
-    private Collection $reservations;
+    #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'game')]
+    private Collection $orders;
+
 
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
-        $this->reservations = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -220,29 +221,29 @@ class Game
     }
 
     /**
-     * @return Collection<int, Reservation>
+     * @return Collection<int, Order>
      */
-    public function getReservations(): Collection
+    public function getOrders(): Collection
     {
-        return $this->reservations;
+        return $this->orders;
     }
 
-    public function addReservation(Reservation $reservation): static
+    public function addOrder(Order $order): static
     {
-        if (!$this->reservations->contains($reservation)) {
-            $this->reservations->add($reservation);
-            $reservation->setGame($this);
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setGame($this);
         }
 
         return $this;
     }
 
-    public function removeReservation(Reservation $reservation): static
+    public function removeOrder(Order $order): static
     {
-        if ($this->reservations->removeElement($reservation)) {
+        if ($this->orders->removeElement($order)) {
             // set the owning side to null (unless already changed)
-            if ($reservation->getGame() === $this) {
-                $reservation->setGame(null);
+            if ($order->getGame() === $this) {
+                $order->setGame(null);
             }
         }
 
