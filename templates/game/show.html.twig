@@ -32,6 +32,10 @@
                 <td>{{ game.price }}</td>
             </tr>
             <tr>
+                <th>Promotion</th>
+                <td>{{ game.promotion }}</td>
+            </tr>
+            <tr>
                 <th>Platform</th>
                 <td>{{ game.platform }}</td>
             </tr>
@@ -48,8 +52,8 @@
                 <td>{{ game.createdAt ? game.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Update_at</th>
-                <td>{{ game.updateAt ? game.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Updated_at</th>
+                <td>{{ game.updatedAt ? game.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>

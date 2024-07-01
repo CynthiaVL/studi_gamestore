@@ -31,6 +31,9 @@ class Game
     #[ORM\Column]
     private ?float $price = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $promotion = null;
+
     #[ORM\Column(length: 255)]
     private ?string $platform = null;
 
@@ -44,7 +47,7 @@ class Game
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $update_at = null;
+    private ?\DateTimeImmutable $updated_at = null;
 
     /**
      * @var Collection<int, Inventory>
@@ -130,6 +133,18 @@ class Game
         return $this;
     }
 
+    public function getPromotion(): ?float
+    {
+        return $this->promotion;
+    }
+
+    public function setPromotion(?float $promotion): static
+    {
+        $this->promotion = $promotion;
+
+        return $this;
+    }
+
     public function getPlatform(): ?string
     {
         return $this->platform;
@@ -178,14 +193,14 @@ class Game
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeImmutable
+    public function getupdatedAt(): ?\DateTimeImmutable
     {
-        return $this->update_at;
+        return $this->updated_at;
     }
 
-    public function setUpdateAt(?\DateTimeImmutable $update_at): static
+    public function setUpdatedAt(?\DateTimeImmutable $updated_at): static
     {
-        $this->update_at = $update_at;
+        $this->updated_at = $updated_at;
 
         return $this;
     }

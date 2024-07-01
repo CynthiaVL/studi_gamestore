@@ -3,8 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\StoreRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: StoreRepository::class)]
@@ -18,14 +20,17 @@ class Store
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column]
-    private array $open_time = [];
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $open_time = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $close_time = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $update_at = null;
+    private ?\DateTimeImmutable $updated_at = null;
 
     #[ORM\OneToOne(mappedBy: 'store', cascade: ['persist', 'remove'])]
     private ?Adress $adress = null;
@@ -66,14 +71,26 @@ class Store
         return $this;
     }
 
-    public function getOpenTime(): array
+    public function getOpenTime(): ?DateTimeInterface
     {
         return $this->open_time;
     }
 
-    public function setOpenTime(array $open_time): static
+    public function setOpenTime(\DateTimeInterface $open_time): static
     {
         $this->open_time = $open_time;
+
+        return $this;
+    }
+
+    public function getCloseTime(): ?\DateTimeInterface
+    {
+        return $this->close_time;
+    }
+
+    public function setCloseTime(\DateTimeInterface $close_time): static
+    {
+        $this->close_time = $close_time;
 
         return $this;
     }
@@ -90,14 +107,14 @@ class Store
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeImmutable
+    public function getupdatedAt(): ?\DateTimeImmutable
     {
-        return $this->update_at;
+        return $this->updated_at;
     }
 
-    public function setUpdateAt(?\DateTimeImmutable $update_at): static
+    public function setUpdatedAt(?\DateTimeImmutable $updated_at): static
     {
-        $this->update_at = $update_at;
+        $this->updated_at = $updated_at;
 
         return $this;
     }

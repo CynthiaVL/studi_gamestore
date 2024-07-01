@@ -15,8 +15,9 @@
                 <th>Firstname</th>
                 <th>Lastname</th>
                 <th>Birthdate</th>
+                <th>Api_token</th>
                 <th>Created_at</th>
-                <th>Update_at</th>
+                <th>Updated_at</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -30,8 +31,9 @@
                 <td>{{ user.firstname }}</td>
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.birthdate ? user.birthdate|date('Y-m-d') : '' }}</td>
+                <td>{{ user.apiToken }}</td>
                 <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ user.updateAt ? user.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
@@ -39,7 +41,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="10">no records found</td>
+                <td colspan="11">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

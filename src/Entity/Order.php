@@ -50,12 +50,12 @@ class Order
         return $this;
     }
 
-    public function getPickupDate(): ?\DateTimeInterface
+    public function getPickupdate(): ?\DateTimeInterface
     {
         return $this->pickup_date;
     }
 
-    public function setPickupDate(\DateTimeInterface $pickup_date): static
+    public function setPickupdate(\DateTimeInterface $pickup_date): static
     {
         $this->pickup_date = $pickup_date;
 

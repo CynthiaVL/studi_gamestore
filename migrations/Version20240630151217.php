@@ -34,7 +34,7 @@ final class Version20240630151217 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_F5299398B092A811 ON `order` (store_id)');
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D6498486F9AC');
         $this->addSql('DROP INDEX IDX_8D93D6498486F9AC ON user');
-        $this->addSql('ALTER TABLE user ADD update_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', DROP adress_id, CHANGE email email VARCHAR(180) NOT NULL, CHANGE role roles JSON NOT NULL COMMENT \'(DC2Type:json)\'');
+        $this->addSql('ALTER TABLE user ADD updated_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', DROP adress_id, CHANGE email email VARCHAR(180) NOT NULL, CHANGE role roles JSON NOT NULL COMMENT \'(DC2Type:json)\'');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL ON user (email)');
     }
 
@@ -54,7 +54,7 @@ final class Version20240630151217 extends AbstractMigration
         $this->addSql('ALTER TABLE `order` ADD CONSTRAINT FK_F5299398B83297E7 FOREIGN KEY (reservation_id) REFERENCES reservation (id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_F5299398B83297E7 ON `order` (reservation_id)');
         $this->addSql('DROP INDEX UNIQ_IDENTIFIER_EMAIL ON user');
-        $this->addSql('ALTER TABLE user ADD adress_id INT NOT NULL, DROP update_at, CHANGE email email VARCHAR(255) NOT NULL, CHANGE roles role JSON NOT NULL COMMENT \'(DC2Type:json)\'');
+        $this->addSql('ALTER TABLE user ADD adress_id INT NOT NULL, DROP updated_at, CHANGE email email VARCHAR(255) NOT NULL, CHANGE roles role JSON NOT NULL COMMENT \'(DC2Type:json)\'');
         $this->addSql('ALTER TABLE user ADD CONSTRAINT FK_8D93D6498486F9AC FOREIGN KEY (adress_id) REFERENCES adress (id)');
         $this->addSql('CREATE INDEX IDX_8D93D6498486F9AC ON user (adress_id)');
     }

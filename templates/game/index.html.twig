@@ -8,14 +8,19 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Titre</th>
-                <th>Contenue</th>
-                <th>Age</th>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Pegi</th>
                 <th>Genre</th>
-                <th>Prix</th>
-                <th>Plateforme</th>
+                <th>Price</th>
+                <th>Promotion</th>
+                <th>Platform</th>
                 <th>Image</th>
-                <th>Date de sortie</th>
+                <th>Release_date</th>
+                <th>Created_at</th>
+                <th>Updated_at</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
@@ -27,9 +32,12 @@
                 <td>{{ game.pegi }}</td>
                 <td>{{ game.genre }}</td>
                 <td>{{ game.price }}</td>
+                <td>{{ game.promotion }}</td>
                 <td>{{ game.platform }}</td>
                 <td>{{ game.image }}</td>
                 <td>{{ game.releaseDate ? game.releaseDate|date('Y-m-d') : '' }}</td>
+                <td>{{ game.createdAt ? game.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ game.updatedAt ? game.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_game_show', {'id': game.id}) }}">show</a>
                     <a href="{{ path('app_game_edit', {'id': game.id}) }}">edit</a>
@@ -37,7 +45,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="12">no records found</td>
+                <td colspan="13">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

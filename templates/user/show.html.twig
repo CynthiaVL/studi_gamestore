@@ -17,13 +17,7 @@
             </tr>
             <tr>
                 <th>Roles</th>
-                <td>
-                    {% if user.roles %}
-                        {{ user.roles|join(', ') }}
-                    {% else %}
-                        {{ '' }}
-                    {% endif %}
-                </td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
             </tr>
             <tr>
                 <th>Password</th>
@@ -42,17 +36,23 @@
                 <td>{{ user.birthdate ? user.birthdate|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
+                <th>Api_token</th>
+                <td>{{ user.apiToken }}</td>
+            </tr>
+            <tr>
                 <th>Created_at</th>
                 <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Update_at</th>
-                <td>{{ user.updateAt ? user.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Updated_at</th>
+                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
     <a href="{{ path('app_user_index') }}">back to list</a>
+
     <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+
     {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

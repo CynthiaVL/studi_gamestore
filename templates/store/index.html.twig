@@ -11,6 +11,9 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Open_time</th>
+                <th>Close_time</th>
+                <th>Created_at</th>
+                <th>Updated_at</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -19,7 +22,10 @@
             <tr>
                 <td>{{ store.id }}</td>
                 <td>{{ store.name }}</td>
-                <td>{{ store.openTime ? store.openTime|json_encode : '' }}</td>
+                <td>{{ store.openTime ? store.openTime|date('H:i:s') : '' }}</td>
+                <td>{{ store.closeTime ? store.closeTime|date('H:i:s') : '' }}</td>
+                <td>{{ store.createdAt ? store.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ store.updatedAt ? store.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_store_show', {'id': store.id}) }}">show</a>
                     <a href="{{ path('app_store_edit', {'id': store.id}) }}">edit</a>
@@ -27,7 +33,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

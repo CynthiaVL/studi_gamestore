@@ -15,7 +15,18 @@ class StoreType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('open_time')
+            ->add('open_time', null, [
+                'widget' => 'single_text',
+            ])
+            ->add('close_time', null, [
+                'widget' => 'single_text',
+            ])
+            ->add('created_at', null, [
+                'widget' => 'single_text',
+            ])
+            ->add('updated_at', null, [
+                'widget' => 'single_text',
+            ])
             ->add('adress', EntityType::class, [
                 'class' => Adress::class,
                 'choice_label' => 'id',

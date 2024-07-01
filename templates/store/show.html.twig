@@ -17,15 +17,19 @@
             </tr>
             <tr>
                 <th>Open_time</th>
-                <td>{{ store.openTime ? store.openTime|json_encode : '' }}</td>
+                <td>{{ store.openTime ? store.openTime|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Close_time</th>
+                <td>{{ store.closeTime ? store.closeTime|date('H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>Created_at</th>
                 <td>{{ store.createdAt ? store.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Update_at</th>
-                <td>{{ store.updateAt ? store.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Updated_at</th>
+                <td>{{ store.updatedAt ? store.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>

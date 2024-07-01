@@ -17,9 +17,16 @@ class GameType extends AbstractType
             ->add('pegi')
             ->add('genre')
             ->add('price')
+            ->add('promotion')
             ->add('platform')
             ->add('image')
             ->add('release_date', null, [
+                'widget' => 'single_text',
+            ])
+            ->add('created_at', null, [
+                'widget' => 'single_text',
+            ])
+            ->add('updated_at', null, [
                 'widget' => 'single_text',
             ])
         ;
