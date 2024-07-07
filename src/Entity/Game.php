@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\GameRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
 class Game
@@ -38,7 +40,7 @@ class Game
     private ?string $platform = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    private ?File $image = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $release_date = null;
@@ -66,6 +68,7 @@ class Game
     {
         $this->inventories = new ArrayCollection();
         $this->orders = new ArrayCollection();
+        $this->created_at = new DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -157,12 +160,12 @@ class Game
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage(): ?File
     {
         return $this->image;
     }
 
-    public function setImage(string $image): static
+    public function setImage(File $image): static
     {
         $this->image = $image;
 

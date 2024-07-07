@@ -27,16 +27,29 @@
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                                 <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/game">Nos jeux</a></li>
-                                <li class="nav-item" data-show="disconnected"><a class="nav-link" href="/login">Connexion</a></li>
-                                <li class="nav-item dropdown" data-show="connected">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon espace</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="/order" data-show="user">Mon panier</a></li>
-                                        <li><a class="dropdown-item" href="/profil">Mes infos</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><button class="dropdown-item" id="signout">Se déconnecter</button></li>
-                                    </ul>
-                                </li>
+                                {% if (is_granted('ROLE_ADMIN') and is_granted('ROLE_USER') or (is_granted('ROLE_STAFF') and is_granted('ROLE_USER'))) %}
+                                    <li class="nav-item dropdown" data-show="connected">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon espace</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="/dashboard" data-show="user">Dashboard</a></li>
+                                            <li><a class="dropdown-item" href="/profil">Mes infos</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><button class="dropdown-item" id="/logout">Se déconnecter</button></li>
+                                        </ul>
+                                    </li>
+                                {% elseif is_granted('ROLE_USER') %}
+                                    <li class="nav-item dropdown" data-show="connected">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon espace</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="/order" data-show="user">Mon panier</a></li>
+                                            <li><a class="dropdown-item" href="/profil">Mes infos</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><button class="dropdown-item" id="/logout">Se déconnecter</button></li>
+                                        </ul>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item" data-show="disconnected"><a class="nav-link" href="/login">Connexion</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -57,7 +70,7 @@
             <div class="hero-scene">
                 <div class="text-center hero-scene-content text-purple">
                     <h1>GameStore</h1>
-                    <a class="btn btn-secondary" href="/stores">Trouver mon magasin</a>
+                    <a class="btn btn-secondary" href="/store">Trouver mon magasin</a>
                 </div>
             </div>
 
@@ -79,7 +92,7 @@
                         <h2 class="text-center p-4 text-purple">Nos Promotions</h2>
                         <p>[-- INSERER CARDS --]</p>
                         <div class="text-center">
-                            <a class="btn btn-secondary m-4" href="/user">Profitez en vite ! Connectez vous !</a>
+                            <a class="btn btn-secondary m-4" href="/login">Profitez en vite ! Connectez vous !</a>
                         </div>
                     </div>
                 </article>
@@ -88,7 +101,7 @@
                         <h2 class="text-center text-secondary p-4">Les nouveautés</h2>
                         <p>[-- INSERER CARDS --]</p>
                         <div class="text-center">
-                            <a class="btn btn-secondary m-4" href="/games">Nos jeux</a>
+                            <a class="btn btn-secondary m-4" href="/game">Nos jeux</a>
                         </div>
                     </div>
                 </article>

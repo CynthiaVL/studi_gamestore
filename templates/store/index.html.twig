@@ -1,43 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Store index{% endblock %}
+{% block title %}Magasins{% endblock %}
 
 {% block body %}
-    <h1>Store index</h1>
+    <div class="hero-scene">
+        <div class="text-center hero-scene-content text-purple">
+            <h1>Nos Magasins</h1>
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Open_time</th>
-                <th>Close_time</th>
-                <th>Created_at</th>
-                <th>Updated_at</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="row">
         {% for store in stores %}
-            <tr>
-                <td>{{ store.id }}</td>
-                <td>{{ store.name }}</td>
-                <td>{{ store.openTime ? store.openTime|date('H:i:s') : '' }}</td>
-                <td>{{ store.closeTime ? store.closeTime|date('H:i:s') : '' }}</td>
-                <td>{{ store.createdAt ? store.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ store.updatedAt ? store.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_store_show', {'id': store.id}) }}">show</a>
-                    <a href="{{ path('app_store_edit', {'id': store.id}) }}">edit</a>
-                </td>
-            </tr>
+            <div class="col-md-4">
+                <div class="card m-3">
+                    <div class="card-body text-center">
+                        <h5 class="card-title"><strong>{{ store.name }}</strong></h5>
+                        {% if store.adress %}
+                            <p><strong>Adresse :</strong> {{ store.adress.street }}, <br> {{ store.adress.city }}, {{ store.adress.postalCode }}</p>
+                        {% else %}
+                            <p>Pas d'adresse définie pour ce magasin.</p>
+                        {% endif %}
+                        <p><strong>Ouvert du :</strong> <br> Mardi au Samedi <br> {{ store.openTime|date('H:i') }} - {{ store.closeTime|date('H:i') }}</p>
+                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#storeModal">Voir le magasin</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('app_store_edit', {'id': store.id}) }}" class="btn btn-info">Modifier</a>
+                            <a href="{{ path('app_store_delete', {'id': store.id}) }}" class="btn btn-danger">Supprimer</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% if loop.index % 3 == 0 %}
+                </div><div class="row">
+            {% endif %}
         {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
+            <div class="col">
+                <p>Aucun magasin trouvé.</p>
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
 
-    <a href="{{ path('app_store_new') }}">Create new</a>
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class='text-center'>
+        <a href="{{ path('app_store_new') }}" class="btn btn-success m-4">Ajouter un magasin</a>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block modales %}
+<div class="modal fade" id="storeModal" tabindex="-1" aria-labelledby="storeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ store.name }}</h5>
+      </div>
+      <div class="modal-body">
+        <p>[AJOUTER LES INFOS + MAP]</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

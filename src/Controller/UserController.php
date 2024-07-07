@@ -3,14 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ChangePasswordFormType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\PasswordHasherInterface;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -39,6 +41,73 @@ class UserController extends AbstractController
         return $this->render('user/new.html.twig', [
             'user' => $user,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/profil', name: 'app_user_profile', methods: ['GET'])]
+    public function profile(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        // Récupérer l'utilisateur connecté
+        /** @var User $user */
+        $user = $this->getUser();
+        if (!$user) {
+            throw $this->createNotFoundException('No user found');
+        }
+
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Profile updated successfully');
+
+            return $this->redirectToRoute('app_user_profile');
+        }
+        return $this->render('user/index.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/profile/change-password', name: 'app_user_change_password')]
+    public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!$user) {
+            throw new AccessDeniedException('Vous devez être connecté pour changer votre mot de passe.');
+        }
+
+        $form = $this->createForm(ChangePasswordFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $currentPassword = $form->get('currentPassword')->getData();
+            if (!$passwordHasher->isPasswordValid($user, $currentPassword)) {
+                $this->addFlash('error', 'Votre mot de passe actuel est incorrect.');
+                return $this->redirectToRoute('app_user_change_password');
+            }
+
+            $newPassword = $form->get('plainPassword')->getData();
+            $confirmPassword = $form->get('confirmPassword')->getData();
+
+            if ($newPassword !== $confirmPassword) {
+                $this->addFlash('error', 'Les nouveaux mots de passe ne correspondent pas.');
+                return $this->redirectToRoute('app_user_change_password');
+            }
+
+            $user->setPassword($passwordHasher->hashPassword($user, $newPassword));
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre mot de passe a été changé avec succès.');
+            return $this->redirectToRoute('app_user_profile');
+        }
+
+        return $this->render('user/change_password.html.twig', [
+            'changePasswordForm' => $form->createView(),
         ]);
     }
 
@@ -71,7 +140,7 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $userRepository->remove($user, true);
         }
 
