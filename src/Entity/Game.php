@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
 class Game
@@ -27,8 +26,8 @@ class Game
     #[ORM\Column]
     private ?int $pegi = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $genre = null;
+    #[ORM\Column(type: Types::SIMPLE_ARRAY)]
+    private array $genre = [];
 
     #[ORM\Column]
     private ?float $price = null;
@@ -36,11 +35,11 @@ class Game
     #[ORM\Column(nullable: true)]
     private ?float $promotion = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $platform = null;
+    #[ORM\Column(type: Types::SIMPLE_ARRAY)]
+    private array $platform = [];
 
     #[ORM\Column(length: 255)]
-    private ?File $image = null;
+    private ?string $image = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $release_date = null;
@@ -63,7 +62,6 @@ class Game
     #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'game')]
     private Collection $orders;
 
-
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
@@ -84,7 +82,6 @@ class Game
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -96,7 +93,6 @@ class Game
     public function setContent(string $content): static
     {
         $this->content = $content;
-
         return $this;
     }
 
@@ -108,19 +104,17 @@ class Game
     public function setPegi(int $pegi): static
     {
         $this->pegi = $pegi;
-
         return $this;
     }
 
-    public function getGenre(): ?string
+    public function getGenre(): array
     {
         return $this->genre;
     }
 
-    public function setGenre(string $genre): static
+    public function setGenre(array $genre): static
     {
         $this->genre = $genre;
-
         return $this;
     }
 
@@ -132,7 +126,6 @@ class Game
     public function setPrice(float $price): static
     {
         $this->price = $price;
-
         return $this;
     }
 
@@ -144,31 +137,28 @@ class Game
     public function setPromotion(?float $promotion): static
     {
         $this->promotion = $promotion;
-
         return $this;
     }
 
-    public function getPlatform(): ?string
+    public function getPlatform(): array
     {
         return $this->platform;
     }
 
-    public function setPlatform(string $platform): static
+    public function setPlatform(array $platform): static
     {
         $this->platform = $platform;
-
         return $this;
     }
 
-    public function getImage(): ?File
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
-    public function setImage(File $image): static
+    public function setImage(string $image): static
     {
         $this->image = $image;
-
         return $this;
     }
 
@@ -180,7 +170,6 @@ class Game
     public function setReleaseDate(\DateTimeInterface $release_date): static
     {
         $this->release_date = $release_date;
-
         return $this;
     }
 
@@ -192,11 +181,10 @@ class Game
     public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
-
         return $this;
     }
 
-    public function getupdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updated_at;
     }
@@ -204,7 +192,6 @@ class Game
     public function setUpdatedAt(?\DateTimeImmutable $updated_at): static
     {
         $this->updated_at = $updated_at;
-
         return $this;
     }
 

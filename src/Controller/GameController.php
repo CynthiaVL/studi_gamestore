@@ -7,6 +7,7 @@ use App\Form\GameType;
 use App\Repository\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -17,8 +18,10 @@ class GameController extends AbstractController
     #[Route('/', name: 'app_game_index', methods: ['GET'])]
     public function index(GameRepository $gameRepository): Response
     {
+        $games = $gameRepository->findAll();
+
         return $this->render('game/index.html.twig', [
-            'games' => $gameRepository->findAll(),
+            'games' => $games,
         ]);
     }
 
@@ -30,6 +33,23 @@ class GameController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile= $form->get('image')->getData();
+
+            if ($imageFile) {
+                $newFilename = uniqid().'.'.$imageFile->guessExtension();
+
+                try {
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // Gérer l'exception si nécessaire
+                }
+
+                $game->setImage($newFilename);
+            }
+
             $entityManager->persist($game);
             $entityManager->flush();
 

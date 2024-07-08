@@ -26,6 +26,12 @@ class Store
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $close_time = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?string $image = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $image_url = null;
+
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
@@ -196,4 +202,40 @@ class Store
         return $this;
     }
 
+
+    /**
+     * Get the value of image
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set the value of image
+     */
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of image_url
+     */
+    public function getImageUrl(): ?string
+    {
+        return $this->image_url;
+    }
+
+    /**
+     * Set the value of image_url
+     */
+    public function setImageUrl(?string $image_url): self
+    {
+        $this->image_url = $image_url;
+
+        return $this;
+    }
 }

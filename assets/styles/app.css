@@ -2,6 +2,94 @@ body {
     background-color: skyblue;
 }
 
+.primary {
+    color : rgb(143, 4, 143);
+}
+
+.btn-primary {
+    border: none;
+    background-color: rgb(143, 4, 143);
+    color: white;
+}
+
+.secondary {
+    color : greenyellow;
+}
+
+.tertiary {
+    color: skyblue;
+}
+
+.btn-secondary {
+    border: none;
+    color: black;
+    background-color: greenyellow;
+}
+
+.danger {
+    color: red;
+}
+
+.modal-content {
+    background-color: rgb(1, 80, 111);
+    color: greenyellow;
+}
+
+.container-2 {
+    background-color: rgb(1, 80, 111);
+    color: greenyellow;
+}
+
+.container-1 {
+    background-color: skyblue;
+    color: rgb(143, 4, 143);
+}
+
+.card{
+    background-color: rgb(1, 80, 111);
+    color: skyblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    .card-title{
+        color: greenyellow;
+    }
+    strong {
+        color: greenyellow;
+    }
+    button {
+        background-color: rgb(202, 3, 202);
+        color: white;
+        border: none;
+    }
+    
+}
+
+.card-body {
+    flex-grow: 1;
+}
+
+.card-body .image {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-body .description,
+.card-body .pegi,
+.card-body .genre,
+.card-body .price,
+.card-body .promotion {
+    margin-bottom: 10px;
+}
+
+.image-game {
+    max-width: 100%;
+    height: auto;
+}
+
 .hero-scene {
     position: relative;
     &::before {

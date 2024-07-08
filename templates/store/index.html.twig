@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="hero-scene">
-        <div class="text-center hero-scene-content text-purple">
+        <div class="text-center hero-scene-content secondary">
             <h1>Nos Magasins</h1>
         </div>
     </div>
@@ -15,13 +15,20 @@
                 <div class="card m-3">
                     <div class="card-body text-center">
                         <h5 class="card-title"><strong>{{ store.name }}</strong></h5>
+                        <div class="image">
+                            {% if store.image %}
+                                <img class="image-game" src="{{ asset('images/' ~ store.image) }}" alt="{{ store.name }}" width="300">
+                            {% elseif store.imageUrl %}
+                                <img class="image-game" src="{{ store.imageUrl }}" alt="{{ store.name }}" width="300">
+                            {% endif %}
+                        </div>
                         {% if store.adress %}
                             <p><strong>Adresse :</strong> {{ store.adress.street }}, <br> {{ store.adress.city }}, {{ store.adress.postalCode }}</p>
                         {% else %}
                             <p>Pas d'adresse définie pour ce magasin.</p>
                         {% endif %}
                         <p><strong>Ouvert du :</strong> <br> Mardi au Samedi <br> {{ store.openTime|date('H:i') }} - {{ store.closeTime|date('H:i') }}</p>
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#storeModal">Voir le magasin</a>
+                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#storeModal{{ store.id }}">Voir le magasin</a>
                         {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('app_store_edit', {'id': store.id}) }}" class="btn btn-info">Modifier</a>
                             <a href="{{ path('app_store_delete', {'id': store.id}) }}" class="btn btn-danger">Supprimer</a>
@@ -32,6 +39,24 @@
             {% if loop.index % 3 == 0 %}
                 </div><div class="row">
             {% endif %}
+
+            <!-- Modal -->
+            <div class="modal fade" id="storeModal{{ store.id }}" tabindex="-1" aria-labelledby="storeModalLabel{{ store.id }}" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="storeModalLabel{{ store.id }}">{{ store.name }}</h5>
+                  </div>
+                  <div class="modal-body">
+                    <p>[AJOUTER LES INFOS + MAP]</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
         {% else %}
             <div class="col">
                 <p>Aucun magasin trouvé.</p>
@@ -41,26 +66,7 @@
 
     {% if is_granted('ROLE_ADMIN') %}
     <div class='text-center'>
-        <a href="{{ path('app_store_new') }}" class="btn btn-success m-4">Ajouter un magasin</a>
+        <a href="{{ path('app_store_new') }}" class="btn btn-primary m-4">Ajouter un magasin</a>
     </div>
     {% endif %}
-{% endblock %}
-
-{% block modales %}
-<div class="modal fade" id="storeModal" tabindex="-1" aria-labelledby="storeModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">{{ store.name }}</h5>
-      </div>
-      <div class="modal-body">
-        <p>[AJOUTER LES INFOS + MAP]</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 {% endblock %}

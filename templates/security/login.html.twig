@@ -13,8 +13,12 @@
                 You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
             </div>
         {% endif %}
+            <div class="hero-scene">
+                <div class="text-center hero-scene-content secondary">
+                    <h1>Se connecter</h1>
+                </div>
+            </div>
             <div class="container">
-            <h1 class="h3 mb-3 font-weight-normal text-center">Connexion</h1>
             <label class="form-label" for="username">Email</label>
             <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
             <label for="password">Mot de passe</label>

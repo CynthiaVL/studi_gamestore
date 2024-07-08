@@ -7,9 +7,11 @@ use App\Form\StoreType;
 use App\Repository\StoreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/store')]
 class StoreController extends AbstractController
@@ -23,13 +25,37 @@ class StoreController extends AbstractController
     }
 
     #[Route('/new', name: 'app_store_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $store = new Store();
         $form = $this->createForm(StoreType::class, $store);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('image')->getData();
+
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+
+                try {
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // Gérer l'exception
+                }
+
+                $store->setImage($newFilename);
+            }
+
+            // Gestion de l'URL de l'image
+            if ($form->get('imageUrl')->getData()) {
+                $store->setImageUrl($form->get('imageUrl')->getData());
+            }
+
             $entityManager->persist($store);
             $entityManager->flush();
 
@@ -51,12 +77,36 @@ class StoreController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_store_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Store $store, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Store $store, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(StoreType::class, $store);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('image')->getData();
+
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+
+                try {
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // Gérer l'exception
+                }
+
+                $store->setImage($newFilename);
+            }
+
+            // Gestion de l'URL de l'image
+            if ($form->get('imageUrl')->getData()) {
+                $store->setImageUrl($form->get('imageUrl')->getData());
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_store_index', [], Response::HTTP_SEE_OTHER);
@@ -71,7 +121,7 @@ class StoreController extends AbstractController
     #[Route('/{id}', name: 'app_store_delete', methods: ['POST'])]
     public function delete(Request $request, Store $store, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$store->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$store->getId(), $request->request->get('_token'))) {
             $entityManager->remove($store);
             $entityManager->flush();
         }
