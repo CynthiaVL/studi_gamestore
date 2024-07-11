@@ -5,10 +5,15 @@ namespace App\Form;
 use App\Entity\Game;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Url;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class GameType extends AbstractType
 {
@@ -29,7 +34,6 @@ class GameType extends AbstractType
                     'Sport' => 'Sport',
                     'Stratégie' => 'Strategie',
                     'Simulation' => 'Simulation',
-
                 ],
                 'multiple' => true,
                 'expanded' => true,
@@ -46,16 +50,13 @@ class GameType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
             ])
-            ->add('image', FileType::class, [
-                'label' => 'Image',
+            ->add('image', TextType::class, [
+                'label' => 'Image URL',
+                'required' => false,
                 'constraints' => [
-                    new File([
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid image file (JPEG or PNG)',
-                    ])
+                    new Url([
+                        'message' => 'Please enter a valid URL.',
+                    ]),
                 ],
             ])
             ->add('release_date', null, [
@@ -68,6 +69,17 @@ class GameType extends AbstractType
                 'widget' => 'single_text',
             ])
         ;
+
+        // Add an event listener to handle file upload or URL logic
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
+            $form = $event->getForm();
+            $data = $event->getData();
+
+            /** @var UploadedFile $file */
+            $file = $form->get('image')->getData();
+            $url = $form->get('image')->getData();
+
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void

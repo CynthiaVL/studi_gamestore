@@ -34,8 +34,8 @@
                         {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}                     
                             <div class="m-3 text-center justify-content-center">
-                                <a href="" type="button" class="btn btn-info">Modifer</a>
-                                <a href="" type="button" class="btn btn-danger">Supprimer</a>
+                                <a href="{{ path('app_game_edit', { 'id': game.id }) }}" type="button" class="btn btn-info">Modifier</a>
+                                <a href="{{ path('app_game_delete', { 'id': game.id }) }}" type="button" class="btn btn-danger">Supprimer</a>
                             </div>
                         {% endif %}
                     </div>

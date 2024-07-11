@@ -23,25 +23,25 @@ class Adress
 
     #[ORM\Column]
     private ?int $postal_code = null;
-    /*
+    
     /**
      * @var Collection<int, User>
      */
-    /*
+    
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'adress')]
     private Collection $user_id;
-    */
+    
 
     #[ORM\OneToOne(inversedBy: 'adress', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Store $store = null;
 
-    /*
+    
     public function __construct()
     {
         $this->user_id = new ArrayCollection();
     }
-    */
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -84,12 +84,12 @@ class Adress
         return $this;
     }
 
-    /*
+    
     /**
      * @return Collection<int, User>
      */
 
-    /*
+    
     public function getUserId(): Collection
     {
         return $this->user_id;
@@ -116,7 +116,6 @@ class Adress
 
         return $this;
     }
-    */
 
     public function getStore(): Store
     {

@@ -33,6 +33,9 @@ class Order
     #[ORM\ManyToOne(inversedBy: 'orders')]
     private ?Store $store = null;
 
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,6 +109,18 @@ class Order
     public function setStore(?Store $store): static
     {
         $this->store = $store;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

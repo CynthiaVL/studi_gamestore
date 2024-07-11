@@ -20,6 +20,9 @@ class Inventory
     private ?Store $store = null;
 
     #[ORM\ManyToOne(inversedBy: 'inventories')]
+    private ?User $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'inventories')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Game $game = null;
 
@@ -60,6 +63,24 @@ class Inventory
     public function setGame(?Game $game): static
     {
         $this->game = $game;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of user
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set the value of user
+     */
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

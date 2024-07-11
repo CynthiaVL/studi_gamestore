@@ -65,7 +65,6 @@
             </header>
         {% endblock %}
 
-
         {% block body %}
             <div class="hero-scene">
                 <div class="text-center hero-scene-content secondary">
@@ -80,7 +79,7 @@
                         <h2 class="text-center primary p-4">Bienvenue sur GameStore</h2>
                         <div class="justify-content-center text-center text-dark">
                             <p>Bienvenue sur GameStore, une boutique unique pour s'immerger dans l'univers des jeux vidéos. <br> Venez découvrir tous nos jeux!</p>
-                            <p>Aucun paiement en ligne! <br> Trouvez la boutique la plus près de chez vous, réservez un jeu en directement sur le site, et venez le chercher près de chez vous! <br> Le paiement ne se fait qu'à se moment là!</p>
+                            <p>Aucun paiement en ligne! <br> Trouvez la boutique la plus près de chez vous, réservez un jeu en directement sur le site, et venez le chercher près de chez vous! <br> Le paiement ne se fait qu'à ce moment là!</p>
                         </div>
                         <div class="text-center">
                             <a class="btn btn-primary m-4" href="/store">Nos magasins</a>
@@ -93,23 +92,23 @@
                             <div class="row">
                                 {% if promotedGames is not null %}
                                     {% for game in promotedGames %}
-                                        <div class="col-md-4">
-                                            <div class="card m-3">
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card h-100">
                                                 <div class="card-body text-center">
                                                     <h5 class="card-title"><strong>{{ game.title }}</strong></h5>
-                                                    <div class="image">
-                                                        <img class="image-game" src="{{ asset('images/' ~ game.image) }}" alt="{{ game.title }}" width="300">
+                                                    <div class="image mb-3">
+                                                        <img class="image-game img-fluid" src="{{ asset('images/' ~ game.image) }}" alt="{{ game.title }}">
                                                     </div>
                                                     <p class="description"><strong>Description: </strong>{{ game.content }}</p>
                                                     <p class="release-date"><strong>Date de sortie: </strong>{{ game.releaseDate ? game.releaseDate|date('d-m-Y') : '' }}</p>
                                                     <p class="promotion"><strong>Prix : </strong><s>{{ game.price }}€</s> {{ game.promotion }}€ </p>
-                                                    <p class="pegi"><strong>Age requis: </strong>{{ game.pegi }}ans</p>
+                                                    <p class="pegi"><strong>Age requis: </strong>{{ game.pegi }} ans</p>
                                                     <p class="genre"><strong>Genre: </strong>{{ game.genre|join(', ') }}</p>
                                                     <p class="platform"><strong>Plateforme: </strong>{{ game.platform|join(', ') }}</p>
-                                                    {% if is_granted('ROLE_USER') %}                     
+                                                    {% if is_granted('ROLE_USER') %}
                                                         <div class="basket-btn">
-                                                            <button type="" ><i class="bi bi-bag-plus-fill"></i></button>
-                                                        <div>
+                                                            <button type="button" class="btn btn-success"><i class="bi bi-bag-plus-fill"></i></button>
+                                                        </div>
                                                     {% endif %}
                                                 </div>
                                             </div>
@@ -119,7 +118,7 @@
                             </div>
                         {% if not is_granted('ROLE_USER') %}
                             <div class="text-center">
-                                <a class="btn btn-secondary m-4" href="/login">Profitez en vite ! Connectez vous !</a>
+                                <a class="btn btn-secondary m-4" href="/login">Profitez-en vite ! Connectez-vous !</a>
                             </div>
                         {% endif %}
                     </div>
@@ -128,33 +127,33 @@
                     <div class="container-1 p-4">
                         <h2 class="text-center primary p-4">Les nouveautés</h2>
                         <div class="row">
-                        {% if recentGames is defined %}
-                            {% for game in recentGames %}
-                                <div class="col-md-4">
-                                    <div class="card m-3">
-                                        <div class="card-body text-center">
-                                            <h5 class="card-title"><strong>{{ game.title }}</strong></h5>
-                                            <div class="image">
-                                                <img class="image-game" src="{{ asset('images/' ~ game.image) }}" alt="{{ game.title }}" width="300">
-                                            </div>
-                                            <p class="description"><strong>Description: </strong>{{ game.content }}</p>
-                                            {% if game.promotion is not null %}
-                                                <p class="promotion"><strong>Prix : </strong><s>{{ game.price }}€</s> {{ game.promotion }}€ </p>
-                                            {% else %}
-                                                <p class="price"><strong>Prix: </strong>{{ game.price }}€</p>
-                                            {% endif %}
-                                            <p class="pegi"><strong>Age requis: </strong>{{ game.pegi }}ans</p>
-                                            <p class="genre"><strong>Genre: </strong>{{ game.genre|join(', ') }}</p>
-                                            {% if is_granted('ROLE_USER') %}                     
-                                                <div class="basket-btn">
-                                                    <button type=""><i class="bi bi-bag-plus-fill"></i></button>
+                            {% if recentGames is defined %}
+                                {% for game in recentGames %}
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card h-100">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title"><strong>{{ game.title }}</strong></h5>
+                                                <div class="image mb-3">
+                                                    <img class="image-game img-fluid" src="{{ asset('images/' ~ game.image) }}" alt="{{ game.title }}">
                                                 </div>
-                                            {% endif %}
+                                                <p class="description"><strong>Description: </strong>{{ game.content }}</p>
+                                                {% if game.promotion is not null %}
+                                                    <p class="promotion"><strong>Prix : </strong><s>{{ game.price }}€</s> {{ game.promotion }}€ </p>
+                                                {% else %}
+                                                    <p class="price"><strong>Prix: </strong>{{ game.price }}€</p>
+                                                {% endif %}
+                                                <p class="pegi"><strong>Age requis: </strong>{{ game.pegi }} ans</p>
+                                                <p class="genre"><strong>Genre: </strong>{{ game.genre|join(', ') }}</p>
+                                                {% if is_granted('ROLE_USER') %}
+                                                    <div class="basket-btn">
+                                                        <button type="button" class="btn btn-success"><i class="bi bi-bag-plus-fill"></i></button>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
+                                {% endfor %}
+                            {% endif %}
                         </div>
                         <div class="text-center">
                             <a class="btn btn-primary m-4" href="/game">Nos jeux</a>
@@ -164,24 +163,23 @@
             </section>
         {% endblock %}
 
-
         {% block footer %}
         <footer class="bg-dark text-white text-center footer">
-        <div class="row">
-            <div class="col-12 col-lg-4">
-                <h3 class="secondary mt-3"> Nos horaires</h3>
-                <p class="tertiary">Du <strong><u>Mardi</u></strong> au <strong><u>Samedi</u></strong> <br> De <strong><u>9h à 19h</u></strong></p>
+            <div class="row">
+                <div class="col-12 col-lg-4">
+                    <h3 class="secondary mt-3"> Nos horaires</h3>
+                    <p class="tertiary">Du <strong><u>Mardi</u></strong> au <strong><u>Samedi</u></strong> <br> De <strong><u>9h à 19h</u></strong></p>
+                </div>
+                <div class="col-6 col-lg-4">
+                    <h3 class="secondary mt-3">Contact</h3>
+                    <p class="tertiary"><a href="/store">Nos magasins</a></p>
+                    <p class="tertiary"><a href="/legalMention">Mentions légales</a></p>
+                </div>
+                <div class="col-6 col-lg-4">
+                    <h3 class="secondary mt-3">ECF</h3>
+                    <p class="tertiary"><strong>Vanlaer Cynthia</strong> <br>Novembre/Décembre 2024</p>
+                </div>
             </div>
-            <div class="col-6 col-lg-4">
-                <h3 class="secondary mt-3">Contact</h3>
-                <p class="tertiary"><a href="/store">Nos magasins</a></p>
-                <p class="tertiary"><a href="/legalMention">Mentions légales</a></p>
-            </div>
-            <div class="col-6 col-lg-4">
-                <h3 class="secondary mt-3">ECF</h3>
-                <p class="tertiary"><strong>Vanlaer Cynthia</strong> <br>Novembre/Décembre 2024</p>
-            </div>
-        </div>
         </footer>
         {% endblock %}
     </body>

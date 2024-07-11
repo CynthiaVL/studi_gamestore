@@ -33,13 +33,13 @@ class GameController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $imageFile= $form->get('image')->getData();
+            $image= $form->get('image')->getData();
 
-            if ($imageFile) {
-                $newFilename = uniqid().'.'.$imageFile->guessExtension();
+            if ($image) {
+                $newFilename = uniqid().'.'.$image->guessExtension();
 
                 try {
-                    $imageFile->move(
+                    $image->move(
                         $this->getParameter('images_directory'),
                         $newFilename
                     );
