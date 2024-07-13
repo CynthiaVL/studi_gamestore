@@ -26,7 +26,9 @@ class RegistrationController extends AbstractController
             $user->setPassword($hashedPassword);
 
             // Définit d'autres attributs de l'utilisateur si nécessaire
-            $user->setRoles(['ROLE_USER']);
+            $selectedRoles = $form->get('roles')->getData();
+            $user->setRoles($selectedRoles);
+            $selectedRoles = $form->get('roles')->getData();
 
             // Persiste l'utilisateur en base de données
             $entityManager->persist($user);

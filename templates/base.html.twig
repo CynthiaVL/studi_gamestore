@@ -27,7 +27,18 @@
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                                 <li class="nav-item"><a class="nav-link secondary" href="/">Accueil</a></li>
                                 <li class="nav-item"><a class="nav-link secondary" href="{{ path('app_game_index') }}">Nos jeux</a></li>
-                                {% if (is_granted('ROLE_ADMIN') and is_granted('ROLE_USER') or (is_granted('ROLE_STAFF') and is_granted('ROLE_USER'))) %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Créer un compte</a></li>
+                                    <li class="nav-item dropdown" data-show="connected">
+                                        <a class="nav-link dropdown-toggle secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon espace</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="/dashboard" data-show="user">Dashboard</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('app_user_profile') }}">Mes infos</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a href="{{ path('app_logout') }}" class="dropdown-item danger" type="button" id="/logout">Se déconnecter</a></li>
+                                        </ul>
+                                    </li>
+                                {% elseif is_granted('ROLE_STAFF') %}
                                     <li class="nav-item dropdown" data-show="connected">
                                         <a class="nav-link dropdown-toggle secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon espace</a>
                                         <ul class="dropdown-menu">

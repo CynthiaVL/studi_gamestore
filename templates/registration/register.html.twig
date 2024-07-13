@@ -5,7 +5,7 @@
 {% block body %}
     <div class="hero-scene">
         <div class="text-center hero-scene-content secondary">
-            <h1>S'inscrire</h1>
+            <h1>Inscription</h1>
         </div>
     </div>
 
@@ -26,8 +26,11 @@
         })}}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword, {
-            label: 'Password : '
+            label: 'Mot de passe : '
         }) }}
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ form_row(registrationForm.roles)}}
+        {% endif %}
         {{ form_row(registrationForm.agreeTerms, {
             label: 'Accepter les conditions'
         }) }}
