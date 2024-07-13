@@ -23,6 +23,9 @@ class RegistrationFormType extends AbstractType
             ->add('birthdate', null, [
                 'widget' => 'single_text',
             ])
+            ->add('adress', AdressType::class, [
+                'label' => 'adress'
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [

@@ -53,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updated_at = null;
 
-    #[ORM\ManyToOne(targetEntity: Adress::class, inversedBy: 'user_id')]
+    #[ORM\ManyToOne(targetEntity: Adress::class, inversedBy: 'user_id', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Adress $adress = null;
 
