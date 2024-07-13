@@ -26,13 +26,13 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                                 <li class="nav-item"><a class="nav-link secondary" href="/">Accueil</a></li>
-                                <li class="nav-item"><a class="nav-link secondary" href="/game">Nos jeux</a></li>
+                                <li class="nav-item"><a class="nav-link secondary" href="{{ path('app_game_index') }}">Nos jeux</a></li>
                                 {% if (is_granted('ROLE_ADMIN') and is_granted('ROLE_USER') or (is_granted('ROLE_STAFF') and is_granted('ROLE_USER'))) %}
                                     <li class="nav-item dropdown" data-show="connected">
                                         <a class="nav-link dropdown-toggle secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon espace</a>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="/dashboard" data-show="user">Dashboard</a></li>
-                                            <li><a class="dropdown-item" href="/profil">Mes infos</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('app_user_profil') }}">Mes infos</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a href="{{ path('app_logout') }}" class="dropdown-item danger" type="button" id="/logout">Se déconnecter</a></li>
                                         </ul>
@@ -42,13 +42,13 @@
                                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon espace</a>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item secondary" href="/order" data-show="user">Mon panier</a></li>
-                                            <li><a class="dropdown-item secondary" href="/profil">Mes infos</a></li>
+                                            <li><a class="dropdown-item secondary" href="{{ path('app_user_profil') }}">Mes infos</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a href="{{ path('app_logout') }}" class="dropdown-item sesondary" type="button" id="/logout">Se déconnecter</a></li>
                                         </ul>
                                     </li>
                                 {% else %}
-                                    <li class="nav-item" data-show="disconnected"><a class="nav-link" href="/login">Connexion</a></li>
+                                    <li class="nav-item" data-show="disconnected"><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -69,7 +69,7 @@
             <div class="hero-scene">
                 <div class="text-center hero-scene-content secondary">
                     <h1>GameStore</h1>
-                    <a class="btn btn-primary" href="/store">Trouver mon magasin</a>
+                    <a class="btn btn-primary" href="{{ path('app_store_index') }}">Trouver mon magasin</a>
                 </div>
             </div>
 
@@ -82,7 +82,7 @@
                             <p>Aucun paiement en ligne! <br> Trouvez la boutique la plus près de chez vous, réservez un jeu en directement sur le site, et venez le chercher près de chez vous! <br> Le paiement ne se fait qu'à ce moment là!</p>
                         </div>
                         <div class="text-center">
-                            <a class="btn btn-primary m-4" href="/store">Nos magasins</a>
+                            <a class="btn btn-primary m-4" href="{{ path('app_store_index') }}">Nos magasins</a>
                         </div>
                     </div>
                 </article>
@@ -118,7 +118,7 @@
                             </div>
                         {% if not is_granted('ROLE_USER') %}
                             <div class="text-center">
-                                <a class="btn btn-secondary m-4" href="/login">Profitez-en vite ! Connectez-vous !</a>
+                                <a class="btn btn-secondary m-4" href="{{ path('app_login') }}">Profitez-en vite ! Connectez-vous !</a>
                             </div>
                         {% endif %}
                     </div>
@@ -156,7 +156,7 @@
                             {% endif %}
                         </div>
                         <div class="text-center">
-                            <a class="btn btn-primary m-4" href="/game">Nos jeux</a>
+                            <a class="btn btn-primary m-4" href="{{ path('app_game_index') }}">Nos jeux</a>
                         </div>
                     </div>
                 </article>
@@ -172,8 +172,8 @@
                 </div>
                 <div class="col-6 col-lg-4">
                     <h3 class="secondary mt-3">Contact</h3>
-                    <p class="tertiary"><a href="/store">Nos magasins</a></p>
-                    <p class="tertiary"><a href="/legalMention">Mentions légales</a></p>
+                    <p class="tertiary"><a href="{{ path('app_store_index') }}">Nos magasins</a></p>
+                    <p class="tertiary"><a href="#">Mentions légales</a></p>
                 </div>
                 <div class="col-6 col-lg-4">
                     <h3 class="secondary mt-3">ECF</h3>

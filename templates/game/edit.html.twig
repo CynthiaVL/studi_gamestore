@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Game{% endblock %}
+{% block title %}Modifier{% endblock %}
 
 {% block body %}
     {{ form_start(form) }}
@@ -15,7 +15,7 @@
         {{ form_row(form.release_date) }}
         {{ form_row(form.created_at) }}
         {{ form_row(form.updated_at) }}
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Sauvegarder</button>
         <a href="{{ path('app_game_index') }}">Retourner à la liste</a>
 
         {{ include('game/_delete_form.html.twig') }}

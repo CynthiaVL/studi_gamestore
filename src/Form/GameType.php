@@ -5,15 +5,10 @@ namespace App\Form;
 use App\Entity\Game;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Url;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 
 class GameType extends AbstractType
 {
@@ -67,19 +62,7 @@ class GameType extends AbstractType
             ])
             ->add('updated_at', null, [
                 'widget' => 'single_text',
-            ])
-        ;
-
-        // Add an event listener to handle file upload or URL logic
-        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-            $form = $event->getForm();
-            $data = $event->getData();
-
-            /** @var UploadedFile $file */
-            $file = $form->get('image')->getData();
-            $url = $form->get('image')->getData();
-
-        });
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
