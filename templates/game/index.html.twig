@@ -8,7 +8,17 @@
             <h1>Tous nos jeux</h1>
         </div>
     </div>
-
+    {% if is_granted('ROLE_USER') %}
+        <div class='text-center mt-3'>
+            <label for="ChoiceStore">Choississez un magasin : </label>
+            <select name="ChoiceStore" id="ChoiceStore">
+                {% for store in stores %}
+                    <option value="{{ store.id }}">{{ store.name }}</option>
+                {% endfor %}
+            </select>
+            <button class='btn btn-primary' type="submit">Valider</button>
+        </div>
+    {% endif %}
     <div class="row">
         {% for game in games %}
             <div class="col-md-4 mt-3 mb-3">

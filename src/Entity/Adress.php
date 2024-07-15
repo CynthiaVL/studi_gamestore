@@ -23,7 +23,13 @@ class Adress
 
     #[ORM\Column]
     private ?int $postal_code = null;
-    
+
+    #[ORM\Column(nullable: true)]
+    private ?float $latitude = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $longitude = null;
+
     /**
      * @var Collection<int, User>
      */
@@ -125,6 +131,42 @@ class Adress
     public function setStore(Store $store): static
     {
         $this->store = $store;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of latitude
+     */
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set the value of latitude
+     */
+    public function setLatitude(?float $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of longitude
+     */
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set the value of longitude
+     */
+    public function setLongitude(?float $longitude): self
+    {
+        $this->longitude = $longitude;
 
         return $this;
     }

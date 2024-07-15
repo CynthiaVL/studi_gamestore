@@ -16,28 +16,32 @@ class StoreRepository extends ServiceEntityRepository
         parent::__construct($registry, Store::class);
     }
 
-    //    /**
-    //     * @return Store[] Returns an array of Store objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findNearestStore($latitude, $longitude)
+    {
+        $entityManager = $this->getEntityManager();
 
-    //    public function findOneBySomeField($value): ?Store
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        // Utilisez une requête SQL native pour calculer la distance
+        $query = $entityManager->createQuery(
+            'SELECT s, 
+                    (6371 * acos(cos(radians(:latitude)) 
+                    * cos(radians(a.latitude)) 
+                    * cos(radians(a.longitude) - radians(:longitude)) 
+                    + sin(radians(:latitude)) 
+                    * sin(radians(a.latitude)))) AS distance 
+             FROM App\Entity\Store s 
+             JOIN s.Adress a
+             ORDER BY distance ASC'
+        )->setParameter('latitude', $latitude)
+         ->setParameter('longitude', $longitude)
+         ->setMaxResults(1);
+
+        // Exécutez la requête et retournez le résultat
+        $nearestStore = $query->getOneOrNullResult();
+
+        if ($nearestStore instanceof Store) {
+            return $nearestStore;
+        } else {
+            return null; // Aucun magasin trouvé à proximité
+        }
+    }
 }

@@ -63,6 +63,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'user')]
     private Collection $orders;
 
+    #[ORM\ManyToOne(targetEntity: Store::class, inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Store $store = null;
+
     public function __construct()
     {
         $this->api_token = bin2hex(random_bytes(20));
@@ -255,6 +259,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $order->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStore(): ?Store
+    {
+        return $this->store;
+    }
+
+    public function setStore(?Store $store): static
+    {
+        $this->store = $store;
 
         return $this;
     }
