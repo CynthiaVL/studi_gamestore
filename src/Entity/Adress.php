@@ -36,7 +36,6 @@ class Adress
     
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'adress')]
     private Collection $user_id;
-    
 
     #[ORM\OneToOne(inversedBy: 'adress', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: true)]
@@ -96,12 +95,12 @@ class Adress
      */
 
     
-    public function getUserId(): Collection
+    public function getUser(): Collection
     {
         return $this->user_id;
     }
 
-    public function addUserId(User $userId): static
+    public function addUser(User $userId): static
     {
         if (!$this->user_id->contains($userId)) {
             $this->user_id->add($userId);
@@ -111,7 +110,7 @@ class Adress
         return $this;
     }
 
-    public function removeUserId(User $userId): static
+    public function removeUser(User $userId): static
     {
         if ($this->user_id->removeElement($userId)) {
             // set the owning side to null (unless already changed)

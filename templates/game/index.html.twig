@@ -10,13 +10,15 @@
     </div>
     {% if is_granted('ROLE_USER') %}
         <div class='text-center mt-3'>
-            <label for="ChoiceStore">Choississez un magasin : </label>
-            <select name="ChoiceStore" id="ChoiceStore">
-                {% for store in stores %}
-                    <option value="{{ store.id }}">{{ store.name }}</option>
-                {% endfor %}
-            </select>
-            <button class='btn btn-primary' type="submit">Valider</button>
+            <form method="post" action="{{ path('app_game_index') }}">
+                <label for="ChoiceStore">Choississez un magasin :</label>
+                <select name="ChoiceStore" id="ChoiceStore">
+                    {% for store in stores %}
+                        <option value="{{ store.id }}">{{ store.name }}</option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-primary" type="submit">Valider</button>
+            </form>
         </div>
     {% endif %}
     <div class="row">
@@ -36,12 +38,14 @@
                         {% endif %}
                         <p class="pegi"><strong>Age requis: </strong>{{ game.pegi }}ans</p>
                         <p class="genre"><strong>Genre: </strong>{{ game.genre|join(', ') }}</p>
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gameModal{{ game.id }}">Voir le jeu</a>
-                        {% if is_granted('ROLE_USER') %}                     
+                        
+                        {% if ($nearestStoreById) %}
                             <div class="m-3 primary">
                                 <button type="button">Ajouter au panier<i class="bi bi-bag-plus-fill"></i></button>
                             </div>
-                        {% endif %}
+                        {% endif %}                    
+
+                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gameModal{{ game.id }}">Voir le jeu</a>
                         {% if is_granted('ROLE_ADMIN') %}                     
                             <div class="m-3 text-center justify-content-center">
                                 <a href="{{ path('app_game_edit', { 'id': game.id }) }}" type="button" class="btn btn-info">Modifier</a>

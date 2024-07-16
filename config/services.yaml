@@ -23,7 +23,3 @@ services:
         arguments:
             $googleApiKey: '%google_api_key%'
         # Autres configurations de votre service, si nécessaire
-
-    App\Repository\AdressRepository:
-        arguments:
-            $googleApiKey: '%google_api_key%'

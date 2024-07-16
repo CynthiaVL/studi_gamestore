@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Game;
+use App\Entity\Store;
+use App\Entity\User;
 use App\Form\GameType;
 use App\Repository\GameRepository;
 use App\Repository\StoreRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -16,16 +19,47 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/game')]
 class GameController extends AbstractController
 {
-    #[Route('/', name: 'app_game_index', methods: ['GET'])]
-    public function index(GameRepository $gameRepository, StoreRepository $storeRepository): Response
+    #[Route('/', name: 'app_game_index', methods: ['GET', 'POST'])]
+    public function index(GameRepository $gameRepository, StoreRepository $storeRepository, UserRepository $userRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $games = $gameRepository->findAll();
-        $stores = $storeRepository->findAll();
+        {
+            $user = $this->getUser();
+            // Récupération de tous les jeux
+            $games = $gameRepository->findAll();
+    
+            // Récupération de tous les magasins
+            $stores = $storeRepository->findAll();
 
-        return $this->render('game/index.html.twig', [
-            'games' => $games,
-            'stores' => $stores
-        ]);
+            //Récupération du magasin par défaut
+            $nearestStoreByUser = $userRepository->findStoreByUser($user);
+    
+            // Si la requête est en méthode POST, cela signifie que le formulaire de choix de magasin a été soumis
+            if ($request->isMethod('POST')) {
+                $storeId = $request->request->get('ChoiceStore');
+    
+                // Récupération de l'entité Store correspondant à l'ID sélectionné
+                $store = $entityManager->getRepository(Store::class)->find($storeId);
+    
+                if (!$store) {
+                    throw $this->createNotFoundException('The store does not exist.');
+                }
+    
+                /** @var User $user */
+                $user->setStore($store);
+    
+                $entityManager->flush();
+    
+                // Redirection vers la même page après la sélection du magasin
+                return $this->redirectToRoute('app_game_index');
+            }
+    
+            // Affichage de la page d'accueil des jeux avec les jeux et les magasins disponibles
+            return $this->render('game/index.html.twig', [
+                'games' => $games,
+                'stores' => $stores,
+                'nearestStoreByUser' => $nearestStoreByUser, 
+            ]);
+        }
     }
 
     #[Route('/new', name: 'app_game_new', methods: ['GET', 'POST'])]

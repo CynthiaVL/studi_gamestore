@@ -45,12 +45,12 @@ class RegistrationController extends AbstractController
             $user->setRoles($selectedRoles);
 
             // Mettre à jour les coordonnées de l'Addresse si nécessaire
-            $Adress = $user->getAdress();
-            dump($Adress); // Vérifiez l'Addresse avant la mise à jour
-            $this->updateAddressCoordinates($Adress, $entityManager);
-            dump($Adress); // Vérifiez l'Addresse après la mise à jour            
-            if ($Adress->getLatitude() !== null && $Adress->getLongitude() !== null) {
-                $nearestStore = $this->findNearestStore($Adress);
+            $adress = $user->getAdress();
+            dump($adress); // Vérifiez l'Addresse avant la mise à jour
+            $this->updateAddressCoordinates($adress, $entityManager);
+            dump($adress); // Vérifiez l'Addresse après la mise à jour            
+            if ($adress->getLatitude() !== null && $adress->getLongitude() !== null) {
+                $nearestStore = $this->findNearestStore($adress);
                 $user->setStore($nearestStore);
             }
             // Persiste l'utilisateur en base de données
@@ -72,7 +72,7 @@ class RegistrationController extends AbstractController
             // Utilisation de l'API Google Maps pour géocoder l'Addresse
             $response = $this->httpClient->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json', [
                 'query' => [
-                    'Address' => $Adress->getStreet() . ', ' . $Adress->getCity(),
+                    'address' => $Adress->getStreet() . ', ' . $Adress->getCity(),
                     'key' => $this->googleApiKey,
                 ],
             ]);

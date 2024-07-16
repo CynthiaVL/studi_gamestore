@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\ChoiseStoreType;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,19 +13,16 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
+    public function login(AuthenticationUtils $authenticationUtils, Request $request, User $user): Response
     {
-        $user = $this->getUser();
-        
-        if ($this->getUser()) {
-            $user = $this->getUser();
+        if ($user) {
             if ($user->getStore() !== null) {
                 return $this->redirectToRoute('home');
             } else {
                 $form = $this->createForm(ChoiseStoreType::class, $user);
                 $form->handleRequest($request);
     
-                return $this->render('user/choiseStore.html.twig', [
+                return $this->render('user/choise_store.html.twig', [
                     'choiseStoreForm' => $form->createView(),
                 ]);
             }

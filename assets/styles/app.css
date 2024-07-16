@@ -52,6 +52,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    margin-bottom: 3;
     .card-title{
         color: greenyellow;
     }
@@ -67,7 +68,10 @@ body {
 }
 
 .card-body {
-    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
 .card-body .image {
@@ -75,6 +79,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-grow: 1;
 }
 
 .card-body .description,

@@ -55,7 +55,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToOne(targetEntity: Adress::class, inversedBy: 'user_id', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Adress $adress = null;
+    private ?Adress $adress = null;    
 
     /**
      * @var Collection<int, Order>
