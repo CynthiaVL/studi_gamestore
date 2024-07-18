@@ -1,20 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OrderController!{% endblock %}
+{% block title %}Panier{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/xampp/htdocs/Cynthia/studi_gamestore/src/Controller/OrderController.php</code></li>
-        <li>Your template at <code>C:/xampp/htdocs/Cynthia/studi_gamestore/templates/order/index.html.twig</code></li>
-    </ul>
-</div>
+    <div class="hero-scene">
+        <div class="text-center hero-scene-content secondary">
+            <h1>Mon Panier</h1>
+        </div>
+    </div>
+    <div class="text-center">
+        <a href="{{ path('app_history') }}" class="btn btn-primary m-3">Voir l'historique des commandes</a>
+    </div>
+    {% for order in orders %}
+        {% if order is empty %}
+            <p>Votre panier est vide.</p>
+        {% else %}
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-8">
+                    <div class="basket-info mb-3">
+                        <div class="d-flex justify-content-between align-items-center border-bottom pb-2">
+                            <span><strong>Jeu :</strong> {{ order.game.title }}</span>
+                            <span><strong>Quantité :</strong> {{ order.quantity }}</span>
+                            {% if order.game.promotion %}
+                                <span><strong>Prix :</strong> {{ order.game.promotion }}€</span>
+                            {% else %}
+                                <span><strong>Prix :</strong> {{ order.game.price }}€</span>
+                            {% endif %}                            
+                            <span><strong>Date de retrait :</strong> {{ order.pickupDate|date('d-m-Y') }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-8">
+                <div class="basket-info mb-3">
+                    <div class="text-center justify-content-center">
+                        <p><strong>Prix total :</strong>{{ totalPrice }}€</p>
+                        <p><strong>Magasin de retrait :</strong> {{ storeName }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div class='text-center justify-content-center'>
+        <form method="post" action="{{ path('app_validate_basket') }}">
+            <button type="submit" class="btn btn-primary m-3">Valider le panier</button>
+        </form>    
+    </div>
 {% endblock %}

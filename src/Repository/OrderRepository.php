@@ -16,28 +16,19 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    //    /**
-    //     * @return Order[] Returns an array of Order objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('o.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function calculatePickupDate(){
+        $pickupDate = new \DateTime();
+        $daysToAdd = 0;
 
-    //    public function findOneBySomeField($value): ?Order
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        while ($daysToAdd < 7) {
+            $pickupDate->modify('+1 day');
+            $dayOfWeek = $pickupDate->format('N');
+
+            if ($dayOfWeek != 7 && $dayOfWeek != 1) { // 7 is Sunday, 1 is Monday
+                $daysToAdd++;
+            }
+        }
+
+        return $pickupDate;
+    }
 }

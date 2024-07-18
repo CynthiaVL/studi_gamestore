@@ -43,8 +43,9 @@
                                     <li class="nav-item dropdown" data-show="connected">
                                         <a class="nav-link dropdown-toggle secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon espace</a>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="/dashboard" data-show="user">Dashboard</a></li>
                                             <li><a class="dropdown-item" href="{{ path('app_user_profile') }}">Mes infos</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('app_basket') }}">Mon panier</a></li>
+                                            <li><a class="dropdown-item" href="/dashboard" data-show="user">Dashboard</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a href="{{ path('app_logout') }}" class="dropdown-item danger" type="button" id="/logout">Se déconnecter</a></li>
                                         </ul>
@@ -63,7 +64,7 @@
                                     <li class="nav-item dropdown secondary" data-show="connected">
                                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon espace</a>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item secondary" href="/order" data-show="user">Mon panier</a></li>
+                                            <li><a class="dropdown-item secondary" href="{{ path('app_basket') }}" data-show="user">Mon panier</a></li>
                                             <li><a class="dropdown-item secondary" href="{{ path('app_user_profile') }}">Mes infos</a></li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a href="{{ path('app_logout') }}" class="dropdown-item sesondary" type="button" id="/logout">Se déconnecter</a></li>

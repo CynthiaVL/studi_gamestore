@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Game;
 use App\Entity\Inventory;
+use App\Entity\Store;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,28 +18,17 @@ class InventoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Inventory::class);
     }
 
-    //    /**
-    //     * @return Inventory[] Returns an array of Inventory objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('i')
-    //            ->andWhere('i.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('i.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findQuantityByGameAndStore(Game $game, Store $store)
+    {
+        $result = $this->createQueryBuilder('i')
+            ->select('i.quantity')
+            ->where('i.game = :game')
+            ->andWhere('i.store = :store')
+            ->setParameter('game', $game)
+            ->setParameter('store', $store)
+            ->getQuery()
+            ->getOneOrNullResult();
 
-    //    public function findOneBySomeField($value): ?Inventory
-    //    {
-    //        return $this->createQueryBuilder('i')
-    //            ->andWhere('i.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        return $result ? (int) $result['quantity'] : 0;
+    }
 }

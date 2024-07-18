@@ -1,11 +1,11 @@
 {# templates/user/profile.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Profil Utilisateur{% endblock %}
+{% block title %}Profil{% endblock %}
 
 {% block body %}
     <div class="hero-scene">
-        <div class="text-center hero-scene-content text-purple">
+        <div class="text-center hero-scene-content secondary">
             <h1>Mon Profil</h1>
         </div>
     </div>
@@ -35,6 +35,12 @@
                     <i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#editEmailModal"></i>
                 </div>
             </div>
+            <div class="profile-info mb-3">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-2">
+                    <span><strong>Magasin par défaut :</strong> {{ storeName }}</span>
+                    <i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#editStoreModal"></i>
+                </div>
+            </div>
             {% if is_granted('ROLE_ADMIN') %}
             <div class="profile-info mb-3">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-2">
@@ -61,7 +67,8 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="firstname" class="form-label">Prénom</label>
-                            <input type="text" class="form-control" id="firstname" name="firstname" value="{{ user.firstname }}">
+                            <input type="text" class="form-control" id="firstname" name="value" value="{{ user.firstname }}">
+                            <input type="hidden" name="field" value="firstname">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -84,7 +91,8 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="lastname" class="form-label">Nom</label>
-                            <input type="text" class="form-control" id="lastname" name="lastname" value="{{ user.lastname }}">
+                            <input type="text" class="form-control" id="lastname" name="value" value="{{ user.lastname }}">
+                            <input type="hidden" name="field" value="lastname">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -107,7 +115,8 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="birthdate" class="form-label">Date d'anniversaire</label>
-                            <input type="date" class="form-control" id="birthdate" name="birthdate" value="{{ user.birthdate|date('Y-m-d') }}">
+                            <input type="date" class="form-control" id="birthdate" name="value" value="{{ user.birthdate|date('d-m-Y') }}">
+                            <input type="hidden" name="field" value="birthdate">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -130,7 +139,36 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+                            <input type="email" class="form-control" id="email" name="value" value="{{ user.email }}">
+                            <input type="hidden" name="field" value="email">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editStoreModal" tabindex="-1" aria-labelledby="editStoreModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="{{ path('app_user_edit', {'id': user.id}) }}">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editStoreModalLabel">Modifier le magasin par défaut</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="store" class="form-label">Magasin par défaut</label>
+                            <select type="store" class="form-control" id="store" name="value">
+                                {% for store in stores %}
+                                    <option value="{{ store.name }}">{{ store.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="hidden" name="field" value="store">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -154,8 +192,9 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="roles" class="form-label">Rôles</label>
-                            <select class="form-control" id="roles" name="roles[]" multiple>
+                            <select class="form-control" id="roles" name="value[]" multiple>
                                 <option value="ROLE_USER" {% if 'ROLE_USER' in user.roles %}selected{% endif %}>Utilisateur</option>
+                                <option value="ROLE_STAFF" {% if 'ROLE_STAFF' in user.roles %}selected{% endif %}>Employé</option>
                                 <option value="ROLE_ADMIN" {% if 'ROLE_ADMIN' in user.roles %}selected{% endif %}>Administrateur</option>
                             </select>
                         </div>

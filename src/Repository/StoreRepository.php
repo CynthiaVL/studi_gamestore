@@ -16,6 +16,16 @@ class StoreRepository extends ServiceEntityRepository
         parent::__construct($registry, Store::class);
     }
 
+    public function findOneById($id)
+    {
+        return $this->createQueryBuilder('s')
+                ->andWhere('s.id = :id')
+                ->setParameter('id', $id)
+                ->getQuery()
+                ->getOneOrNullResult()
+            ;
+    }
+
     public function findNearestStore($latitude, $longitude)
     {
         $entityManager = $this->getEntityManager();

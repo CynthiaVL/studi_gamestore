@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Store;
 use App\Entity\User;
 use App\Form\ChangePasswordFormType;
 use App\Form\UserType;
+use App\Repository\StoreRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, StoreRepository $storeRepository): Response
     {
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
@@ -45,11 +47,10 @@ class UserController extends AbstractController
     }
 
     #[Route('/profile', name: 'app_user_profile', methods: ['GET'])]
-    public function profile(Request $request, EntityManagerInterface $entityManager): Response
+    public function profile(Request $request, EntityManagerInterface $entityManager, StoreRepository $storeRepository): Response
     {
-        // Récupérer l'utilisateur connecté
-        /** @var User $user */
         $user = $this->getUser();
+        $stores = $storeRepository->findAll();
         if (!$user) {
             throw $this->createNotFoundException('No user found');
         }
@@ -61,13 +62,18 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Profile updated successfully');
-
             return $this->redirectToRoute('app_user_profile');
         }
+
+        if ($user instanceof User) {
+            $storeName = $user->getStore()->getName(); 
+        }
+
         return $this->render('user/index.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
+            'stores' => $stores,
+            'storeName' => $storeName,
         ]);
     }
 
@@ -87,7 +93,6 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $currentPassword = $form->get('currentPassword')->getData();
             if (!$passwordHasher->isPasswordValid($user, $currentPassword)) {
-                $this->addFlash('error', 'Votre mot de passe actuel est incorrect.');
                 return $this->redirectToRoute('app_user_change_password');
             }
 
@@ -95,14 +100,12 @@ class UserController extends AbstractController
             $confirmPassword = $form->get('confirmPassword')->getData();
 
             if ($newPassword !== $confirmPassword) {
-                $this->addFlash('error', 'Les nouveaux mots de passe ne correspondent pas.');
                 return $this->redirectToRoute('app_user_change_password');
             }
 
             $user->setPassword($passwordHasher->hashPassword($user, $newPassword));
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre mot de passe a été changé avec succès.');
             return $this->redirectToRoute('app_user_profile');
         }
 
@@ -120,22 +123,49 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, UserRepository $userRepository): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $userRepository->save($user, true);
-
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        $user = $this->getUser();
+        if (!$user) {
+            throw $this->createNotFoundException('No user found');
         }
 
-        return $this->render('user/edit.html.twig', [
-            'user' => $user,
-            'form' => $form,
-        ]);
+        $field = $request->request->get('field');
+        $value = $request->request->get('value');
+        if ($user instanceof User){
+            switch ($field) {
+                case 'firstname':
+                    $user->setFirstname($value);
+                    break;
+                case 'lastname':
+                    $user->setLastname($value);
+                    break;
+                case 'birthdate':
+                    $user->setBirthdate(new \DateTime($value));
+                    break;
+                case 'email':
+                    $user->setEmail($value);
+                    break;
+                case 'store':
+                    // Assuming you have a method to get store by name or ID
+                    $store = $entityManager->getRepository(Store::class)->find($value);
+                    if ($store) {
+                        $user->setStore($store);
+                    } else {
+                        return $this->redirectToRoute('app_user_profile');
+                    }
+                    break;
+                default:
+                    return $this->redirectToRoute('app_user_profile');
+            }
+        }
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_user_profile');
     }
+    
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response

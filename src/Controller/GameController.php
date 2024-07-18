@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Game;
+use App\Entity\Order;
 use App\Entity\Store;
 use App\Entity\User;
 use App\Form\GameType;
 use App\Repository\GameRepository;
+use App\Repository\InventoryRepository;
+use App\Repository\OrderRepository;
 use App\Repository\StoreRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,46 +23,59 @@ use Symfony\Component\Routing\Attribute\Route;
 class GameController extends AbstractController
 {
     #[Route('/', name: 'app_game_index', methods: ['GET', 'POST'])]
-    public function index(GameRepository $gameRepository, StoreRepository $storeRepository, UserRepository $userRepository, Request $request, EntityManagerInterface $entityManager): Response
+    public function index(GameRepository $gameRepository, StoreRepository $storeRepository, InventoryRepository $inventoryRepository, UserRepository $userRepository ,Request $request, EntityManagerInterface $entityManager): Response
     {
-        {
-            $user = $this->getUser();
-            // Récupération de tous les jeux
-            $games = $gameRepository->findAll();
+        $user = $this->getUser();
     
-            // Récupération de tous les magasins
-            $stores = $storeRepository->findAll();
-
-            //Récupération du magasin par défaut
-            $nearestStoreByUser = $userRepository->findStoreByUser($user);
+        // Récupération de tous les jeux et magasins
+        $games = $gameRepository->findAll();
+        $stores = $storeRepository->findAll();
+        $users = $userRepository->findAll();
     
-            // Si la requête est en méthode POST, cela signifie que le formulaire de choix de magasin a été soumis
-            if ($request->isMethod('POST')) {
-                $storeId = $request->request->get('ChoiceStore');
+        // Initialiser $store à null
+        $store = null;
+        $quantities = [];
     
-                // Récupération de l'entité Store correspondant à l'ID sélectionné
-                $store = $entityManager->getRepository(Store::class)->find($storeId);
+        // Récupérer le magasin de l'utilisateur
+        if ($user instanceof User) {
+            $store = $user->getStore();
+        }
     
-                if (!$store) {
-                    throw $this->createNotFoundException('The store does not exist.');
-                }
+        // Si un magasin est sélectionné, récupérer les quantités des jeux dans ce magasin
+        if ($store) {
+            foreach ($games as $game) {
+                $quantities[$game->getId()] = $inventoryRepository->findQuantityByGameAndStore($game, $store);
+            }
+        }
     
-                /** @var User $user */
-                $user->setStore($store);
+        // Si la requête est en méthode POST, cela signifie que le formulaire de choix de magasin a été soumis
+        if ($request->isMethod('POST')) {
+            $storeId = $request->request->get('ChoiceStore');
     
-                $entityManager->flush();
+            // Récupération de l'entité Store correspondant à l'ID sélectionné
+            $store = $entityManager->getRepository(Store::class)->find($storeId);
     
-                // Redirection vers la même page après la sélection du magasin
-                return $this->redirectToRoute('app_game_index');
+            if (!$store) {
+                throw $this->createNotFoundException('Le magasin n\'existe pas.');
             }
     
-            // Affichage de la page d'accueil des jeux avec les jeux et les magasins disponibles
-            return $this->render('game/index.html.twig', [
-                'games' => $games,
-                'stores' => $stores,
-                'nearestStoreByUser' => $nearestStoreByUser, 
-            ]);
+            // Assurez-vous que l'utilisateur est un objet de l'entité User
+            if ($user instanceof User) {
+                $user->setStore($store);
+                $entityManager->flush();
+            }
+    
+            // Redirection vers la même page après la sélection du magasin
+            return $this->redirectToRoute('app_game_index');
         }
+    
+        // Affichage de la page d'accueil des jeux avec les jeux et les magasins disponibles
+        return $this->render('game/index.html.twig', [
+            'games' => $games,
+            'stores' => $stores,
+            'users' => $users,
+            'quantities' => $quantities, 
+        ]);
     }
 
     #[Route('/new', name: 'app_game_new', methods: ['GET', 'POST'])]
@@ -134,5 +150,46 @@ class GameController extends AbstractController
         }
 
         return $this->redirectToRoute('app_game_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/add-to-basket/{id}', name: 'app_add_to_basket')]
+    public function addToBasket($id, GameRepository $gameRepository, InventoryRepository $inventoryRepository, EntityManagerInterface $entityManager, OrderRepository $orderRepository): Response
+    {
+        $game = $gameRepository->find($id);
+        $user = $this->getUser();
+        if ($user instanceof User) {
+            $store = $user->getStore();
+        }
+        
+        if (!$game || !$user || !$store) {
+            throw $this->createNotFoundException('Le jeu, l\'utilisateur ou le magasin n\'existe pas.');
+        }
+        
+        $inventory = $inventoryRepository->findOneBy([
+            'game' => $game,
+            'store' => $store,
+        ]);
+    
+        if (!$inventory || $inventory->getQuantity() <= 0) {
+            throw $this->createNotFoundException('Le jeu n\'est pas disponible dans ce magasin.');
+        }
+    
+        $order = new Order();
+        $order->setGame($game)
+              ->setUser($user)
+              ->setStore($store)
+              ->setStatus('inBasket')
+              ->setQuantity(1)
+              ->setOrderDate(new \DateTime())
+              ->setPickupdate($orderRepository->calculatePickupDate())
+              ->setCreatedAt(new \DateTime());
+    
+        // Décrémenter la quantité de jeu disponible dans l'inventaire
+        $inventory->setQuantity($inventory->getQuantity() - 1);
+    
+        $entityManager->persist($order);
+        $entityManager->flush();
+    
+        return $this->redirectToRoute('app_basket');
     }
 }

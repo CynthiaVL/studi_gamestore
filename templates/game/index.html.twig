@@ -38,13 +38,12 @@
                         {% endif %}
                         <p class="pegi"><strong>Age requis: </strong>{{ game.pegi }}ans</p>
                         <p class="genre"><strong>Genre: </strong>{{ game.genre|join(', ') }}</p>
-                        
-                        {% if ($nearestStoreById) %}
-                            <div class="m-3 primary">
-                                <button type="button">Ajouter au panier<i class="bi bi-bag-plus-fill"></i></button>
-                            </div>
-                        {% endif %}                    
-
+                        {% if app.user and app.user.store and quantities[game.id] is not null %}
+                            <p><strong>Quantité :</strong> {{ quantities[game.id] }}</p>
+                            <a href="{{ path('app_add_to_basket', {'id': game.id}) }}" class="btn btn-primary mb-3">Ajouter au panier</a>
+                        {% else %}
+                            <button class="btn btn-secondary" disabled>Rupture de stock</button>
+                        {% endif %}
                         <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gameModal{{ game.id }}">Voir le jeu</a>
                         {% if is_granted('ROLE_ADMIN') %}                     
                             <div class="m-3 text-center justify-content-center">
@@ -77,6 +76,12 @@
                             <p class="pegi"><strong>Age requis: </strong>{{ game.pegi }}ans</p>
                             <p class="genre"><strong>Genre: </strong>{{ game.genre|join(', ') }}</p>
                             <p class="platform"><strong>Plateforme: </strong>{{ game.platform|join(', ') }}</p>
+                            {% if app.user and app.user.store and quantities[game.id] is not null %}
+                                <p><strong>Quantité :</strong> {{ quantities[game.id] }}</p>
+                                <a href="{{ path('app_add_to_basket', {'id': game.id}) }}" class="btn btn-primary mb-3">Ajouter au panier</a>
+                            {% else %}
+                                <button class="btn btn-secondary" disabled>Rupture de stock</button>
+                            {% endif %}
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>

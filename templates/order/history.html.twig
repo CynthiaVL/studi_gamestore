@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Historique des Commandes{% endblock %}
+
+{% block body %}
+    <div class="hero-scene">
+        <div class="text-center hero-scene-content secondary">
+            <h1>Historique de Mes Commandes</h1>
+        </div>
+    </div>
+
+    {% if orders is empty %}
+        <p>Vous n'avez pas encore passé de commande.</p>
+    {% else %}
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-8">
+                {% for order in orders %}
+                    <div class="basket-info mb-3">
+                        <div class="d-flex justify-content-between align-items-center border-bottom pb-2">
+                            <span><strong>Jeu :</strong> {{ order.game.title }}</span>
+                            <span><strong>Quantité :</strong> {{ order.quantity }}</span>
+                            {% if order.game.promotion %}
+                                <span><strong>Prix :</strong> {{ order.game.promotion }}€</span>
+                            {% else %}
+                                <span><strong>Prix :</strong> {{ order.game.price }}€</span>
+                            {% endif %}
+                            <span><strong>A retiré le :</strong> {{ order.pickupDate|date('d-m-Y') }}</span>
+                            <span><strong>Statut :</strong> {{ order.status }}</span>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-md-8">
+                            <div class="basket-info mb-3">
+                                <div class="text-center justify-content-center">
+                                    <p><strong>Prix total :</strong>{{ totalPrice }}€</p>
+                                    <p><strong>Magasin de retrait :</strong> {{ storeName }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

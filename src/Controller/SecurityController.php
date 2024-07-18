@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ChoiseStoreType;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,15 +15,24 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils, Request $request, User $user): Response
+    public function login(AuthenticationUtils $authenticationUtils, Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
-        if ($user) {
-            if ($user->getStore() !== null) {
+        $user = $this->getUser();
+        if ($user instanceof User) {
+            // Récupérer l'utilisateur de la base de données
+            $user = $userRepository->findOneById($user->getId());
+            // Vérifier si l'utilisateur a un magasin associé
+            if ($user && $userRepository->findStoreByUser($user) !== null) {
                 return $this->redirectToRoute('home');
             } else {
                 $form = $this->createForm(ChoiseStoreType::class, $user);
                 $form->handleRequest($request);
     
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $entityManager->flush();
+                    return $this->redirectToRoute('home');
+                }
+
                 return $this->render('user/choise_store.html.twig', [
                     'choiseStoreForm' => $form->createView(),
                 ]);

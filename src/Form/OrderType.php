@@ -26,11 +26,11 @@ class OrderType extends AbstractType
             ->add('quantity')
             ->add('game', EntityType::class, [
                 'class' => Game::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('store', EntityType::class, [
                 'class' => Store::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('user', EntityType::class, [
                 'class' => User::class,

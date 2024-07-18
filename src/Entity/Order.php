@@ -27,6 +27,9 @@ class Order
     #[ORM\Column]
     private ?int $quantity = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $created_at = null;
+
     #[ORM\ManyToOne(inversedBy: 'orders')]
     private ?Game $game = null;
 
@@ -121,6 +124,24 @@ class Order
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of created_at
+     */
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * Set the value of created_at
+     */
+    public function setCreatedAt(?\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }
