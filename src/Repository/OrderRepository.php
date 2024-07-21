@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Order;
+use App\Entity\Store;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,6 +15,28 @@ class OrderRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Order::class);
+    }
+
+    public function findAllOrderDelivred(Store $store)
+    {
+        return $this->createQueryBuilder('o')
+        ->andWhere('o.status = :status')
+        ->andWhere('o.store = :store')
+        ->setParameter('status', 'delivred')
+        ->setParameter('store', $store)
+        ->getQuery()
+        ->getResult();
+    }
+
+    public function findValidatedOrdersByStore(Store $store)
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.status = :status')
+            ->andWhere('o.store = :store')
+            ->setParameter('status', 'validated')
+            ->setParameter('store', $store)
+            ->getQuery()
+            ->getResult();
     }
 
     public function calculatePickupDate(){

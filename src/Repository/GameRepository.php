@@ -16,9 +16,6 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-        /**
-         * @return Game[] Returns an array of Game objects
-         */
         public function findByReleaseDate(): array
         {
             return $this->createQueryBuilder('g')
@@ -29,13 +26,10 @@ class GameRepository extends ServiceEntityRepository
             ;
         }
 
-    /**
-     * @return Game[] Returns an array of Game objects with promotions
-     */
         public function findByPromotion()
         {
             return $this->createQueryBuilder('g')
-                ->andWhere('g.promotion IS NOT NULL') // Adjust as per your entity's field name for promotion
+                ->andWhere('g.promotion IS NOT NULL')
                 ->getQuery()
                 ->getResult();
         }

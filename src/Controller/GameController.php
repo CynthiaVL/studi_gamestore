@@ -153,10 +153,11 @@ class GameController extends AbstractController
     }
 
     #[Route('/add-to-basket/{id}', name: 'app_add_to_basket')]
-    public function addToBasket($id, GameRepository $gameRepository, InventoryRepository $inventoryRepository, EntityManagerInterface $entityManager, OrderRepository $orderRepository): Response
+    public function addToBasket($id, GameRepository $gameRepository, InventoryRepository $inventoryRepository, OrderRepository $orderRepository, EntityManagerInterface $entityManager, Request $request): Response
     {
         $game = $gameRepository->find($id);
         $user = $this->getUser();
+    
         if ($user instanceof User) {
             $store = $user->getStore();
         }
@@ -174,22 +175,30 @@ class GameController extends AbstractController
             throw $this->createNotFoundException('Le jeu n\'est pas disponible dans ce magasin.');
         }
     
+        $quantity = $request->request->get('quantity', 1);
+    
+        if ($quantity > $inventory->getQuantity()) {
+            throw new \Exception('La quantité demandée dépasse la quantité disponible.');
+        }
+    
         $order = new Order();
         $order->setGame($game)
               ->setUser($user)
               ->setStore($store)
               ->setStatus('inBasket')
-              ->setQuantity(1)
+              ->setQuantity($quantity)
               ->setOrderDate(new \DateTime())
               ->setPickupdate($orderRepository->calculatePickupDate())
               ->setCreatedAt(new \DateTime());
     
         // Décrémenter la quantité de jeu disponible dans l'inventaire
-        $inventory->setQuantity($inventory->getQuantity() - 1);
+        $inventory->setQuantity($inventory->getQuantity() - $quantity);
     
         $entityManager->persist($order);
         $entityManager->flush();
     
-        return $this->redirectToRoute('app_basket');
+        return $this->render('order/index.html.twig', [
+            'game' => $game,
+        ]);
     }
 }

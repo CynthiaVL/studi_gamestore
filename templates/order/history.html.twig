@@ -5,7 +5,7 @@
 {% block body %}
     <div class="hero-scene">
         <div class="text-center hero-scene-content secondary">
-            <h1>Historique de Mes Commandes</h1>
+            <h1>Historique des Commandes</h1>
         </div>
     </div>
 
@@ -28,17 +28,17 @@
                             <span><strong>Statut :</strong> {{ order.status }}</span>
                         </div>
                     </div>
-                    <div class="row justify-content-center mt-4">
-                        <div class="col-md-8">
-                            <div class="basket-info mb-3">
-                                <div class="text-center justify-content-center">
-                                    <p><strong>Prix total :</strong>{{ totalPrice }}€</p>
-                                    <p><strong>Magasin de retrait :</strong> {{ storeName }}</p>
-                                </div>
+                {% endfor %}
+                <div class="row justify-content-center mt-4">
+                    <div class="col-md-8">
+                        <div class="basket-info mb-3">
+                            <div class="text-center justify-content-center">
+                                <p><strong>Prix total :</strong>{{ totalPrice }}€</p>
+                                <p><strong>Magasin de retrait :</strong> {{ storeName }}</p>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
+                </div>
             </div>
         </div>
     {% endif %}

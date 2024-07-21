@@ -36,9 +36,6 @@
                     </div>
                 </div>
             </div>
-            {% if loop.index % 3 == 0 %}
-                </div><div class="row">
-            {% endif %}
 
             <!-- Modal -->
             <div class="modal fade" id="storeModal{{ store.id }}" tabindex="-1" aria-labelledby="storeModalLabel{{ store.id }}" aria-hidden="true">
@@ -47,12 +44,20 @@
                   <div class="modal-header">
                     <h5 class="modal-title" id="storeModalLabel{{ store.id }}">{{ store.name }}</h5>
                   </div>
-                  <div class="modal-body">
-                    <p>[AJOUTER LES INFOS + MAP]</p>
+                  <div class="modal-body justify-content text-center">
+                    <div>
+                        <iframe width="300" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBfm9oxRt_6dloALYE2hWR2_JQiD-q_YaU&q={{ store.adress.latitude }},{{ store.adress.longitude }}" allowfullscreen></iframe>
+                    </div>
+                    {% if store.adress %}
+                        <p><strong>Adresse :</strong> {{ store.adress.street }}, <br> {{ store.adress.city }}, {{ store.adress.postalCode }}</p>
+                    {% else %}
+                        <p>Pas d'adresse définie pour ce magasin.</p>
+                    {% endif %}
+                    <p><strong>Ouvert du :</strong> <br> Mardi au Samedi <br> {{ store.openTime|date('H:i') }} - {{ store.closeTime|date('H:i') }}</p>
+                    
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                   </div>
                 </div>
               </div>

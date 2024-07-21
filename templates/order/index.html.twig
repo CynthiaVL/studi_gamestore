@@ -19,19 +19,30 @@
                 <div class="col-md-8">
                     <div class="basket-info mb-3">
                         <div class="d-flex justify-content-between align-items-center border-bottom pb-2">
-                            <span><strong>Jeu :</strong> {{ order.game.title }}</span>
-                            <span><strong>Quantité :</strong> {{ order.quantity }}</span>
+                            <p><strong>Jeu :</strong> {{ order.game.title }}</p>
+                            <div class='text-center justify-content-center'>
+                                <form method="post" action="{{ path('app_update_quantity', {'id': order.id}) }}">
+                                    <div class="form-group">
+                                        <p><strong>Quantité :</strong><input type="number" id="quantity" name="quantity" min="1" max="{{ quantities[order.game.id] ?? 1 }}" value="1" class="form-control"></p>
+                                        <button type="submit" class="btn btn-secondary">Mettre à jour</button>
+                                    </div>
+                                </form>  
+                            </div>
                             {% if order.game.promotion %}
-                                <span><strong>Prix :</strong> {{ order.game.promotion }}€</span>
+                                <p><strong>Prix :</strong> {{ order.game.promotion }}€</p>
                             {% else %}
-                                <span><strong>Prix :</strong> {{ order.game.price }}€</span>
+                                <p><strong>Prix :</strong> {{ order.game.price }}€</p>
                             {% endif %}                            
-                            <span><strong>Date de retrait :</strong> {{ order.pickupDate|date('d-m-Y') }}</span>
+                            <p><strong>Date de retrait :</strong> {{ order.pickupDate|date('d-m-Y') }}</p>
+                            <form method="post" action="{{ path('app_remove_from_basket', {'id': order.id}) }}">
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         {% endif %}
+    {% endfor %}
         <div class="row justify-content-center mt-4">
             <div class="col-md-8">
                 <div class="basket-info mb-3">
@@ -42,10 +53,9 @@
                 </div>
             </div>
         </div>
-    {% endfor %}
-    <div class='text-center justify-content-center'>
-        <form method="post" action="{{ path('app_validate_basket') }}">
-            <button type="submit" class="btn btn-primary m-3">Valider le panier</button>
-        </form>    
-    </div>
+        <div class='text-center'>
+            <form method='post' action='{{ path('app_validate_basket')}}'>
+                <button type='submit' class='btn btn-primary'>Valider le panier</button>
+            </form>
+        </div>
 {% endblock %}
