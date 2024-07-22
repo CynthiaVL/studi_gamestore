@@ -17,15 +17,28 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    public function findAllOrderDelivred(Store $store)
+    public function findAllOrderDelivred(?Store $store=null)
+    {
+        $queryBuilder = $this->createQueryBuilder('o')
+            ->andWhere('o.status = :status')
+            ->setParameter('status', 'delivred');
+
+        if ($store) {
+            $queryBuilder->andWhere('o.store = :store')
+                ->setParameter('store', $store);
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function findByGameTitle(string $title)
     {
         return $this->createQueryBuilder('o')
-        ->andWhere('o.status = :status')
-        ->andWhere('o.store = :store')
-        ->setParameter('status', 'delivred')
-        ->setParameter('store', $store)
-        ->getQuery()
-        ->getResult();
+            ->join('o.game', 'g')
+            ->where('g.title = :title')
+            ->setParameter('title', $title)
+            ->getQuery()
+            ->getResult();
     }
 
     public function findValidatedOrdersByStore(Store $store)

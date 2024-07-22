@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\Order;
 use App\Entity\User;
 use App\Repository\GameRepository;
+use App\Repository\InventoryRepository;
 use App\Repository\OrderRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,6 +50,71 @@ class OrderController extends AbstractController
         ]);
     }
 
+    #[Route('/add-to-basket/{id}', name: 'app_add_to_basket')]
+    public function addToBasket($id, GameRepository $gameRepository, InventoryRepository $inventoryRepository, OrderRepository $orderRepository, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $game = $gameRepository->find($id);
+        $user = $this->getUser();
+        $orders = $orderRepository->findAll();
+    
+        if ($user instanceof User) {
+            $store = $user->getStore();
+            $storeName = $store->getName();
+        }
+        
+        if (!$game || !$user || !$store) {
+            throw $this->createNotFoundException('Le jeu, l\'utilisateur ou le magasin n\'existe pas.');
+        }
+        
+        $inventory = $inventoryRepository->findOneBy([
+            'game' => $game,
+            'store' => $store,
+        ]);
+    
+        if (!$inventory || $inventory->getQuantity() <= 0) {
+            throw $this->createNotFoundException('Le jeu n\'est pas disponible dans ce magasin.');
+        }
+    
+        $quantity = $request->request->get('quantity', 1);
+    
+        if ($quantity > $inventory->getQuantity()) {
+            throw new \Exception('La quantité demandée dépasse la quantité disponible.');
+        }
+    
+        $order = new Order();
+        $order->setGame($game)
+              ->setUser($user)
+              ->setStore($store)
+              ->setStatus('inBasket')
+              ->setQuantity($quantity)
+              ->setOrderDate(new \DateTime())
+              ->setPickupdate($orderRepository->calculatePickupDate())
+              ->setCreatedAt(new \DateTime());
+    
+        $inventory->setQuantity($inventory->getQuantity() - $quantity);
+    
+        $entityManager->persist($order);
+        $entityManager->flush();
+
+        $totalPrice = 0;
+
+        foreach ($orders as $order) {
+            if($order->getGame()->getPromotion() !== null)
+            {
+                $totalPrice += $order->getGame()->getPromotion() * $order->getQuantity(); 
+            }else{
+                $totalPrice += $order->getGame()->getPrice() * $order->getQuantity();
+            }
+        }
+    
+        return $this->render('order/index.html.twig', [
+            'game' => $game,
+            'orders' => $orders,
+            'totalPrice' => $totalPrice,
+            'storeName' => $storeName,
+        ]);
+    }
+
     #[Route('/update-quantity/{id}', name: 'app_update_quantity', methods: ['POST'])]
     public function updateQuantity(Order $order, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -63,8 +128,17 @@ class OrderController extends AbstractController
     }
 
     #[Route('/remove-from-basket/{id}', name: 'app_remove_from_basket', methods: ['POST'])]
-    public function removeFromBasket(Order $order, EntityManagerInterface $entityManager): Response
+    public function removeFromBasket(Order $order, InventoryRepository $inventoryRepository, EntityManagerInterface $entityManager): Response
     {
+        $inventory = $inventoryRepository->findOneBy([
+            'game' => $order->getGame(),
+            'store' => $order->getStore(),
+        ]);
+    
+        if ($inventory) {
+            $inventory->setQuantity($inventory->getQuantity() + $order->getQuantity());
+        }
+
         $entityManager->remove($order);
         $entityManager->flush();
 
@@ -162,29 +236,60 @@ class OrderController extends AbstractController
         ]);
     }
 
-    #[Route('/dashborad/admin', name: 'app_dashboard_admin')]
-    public function totalSales(OrderRepository $orderRepository)
+    #[Route('/dashboard_admin', name: 'app_dashboard_admin')]
+    public function findAllOrdersByStore(OrderRepository $orderRepository, Request $request): Response
     {
         $user = $this->getUser();
-        if ($user instanceof User){
-            $store = $user->getStore();  
-            $orders = $orderRepository->findAllOrderDelivred($store);
-        }
-
-        $totalPrice =0;
-
-        foreach ($orders as $order) {
-            if($order->getGame()->getPromotion() !== null)
-            {
-                $totalPrice += $order->getGame()->getPromotion() * $order->getQuantity(); 
-            }else{
-                $totalPrice += $order->getGame()->getPrice() * $order->getQuantity();
+        $orders = [];
+        
+        if ($user instanceof User) {
+            $store = $user->getStore();
+            $viewAllStores = $request->query->get('view_all_stores', false);
+    
+            if ($viewAllStores) {
+                $orders = $orderRepository->findAllOrderDelivred();
+            } else {
+                $orders = $orderRepository->findAllOrderDelivred($store);
             }
+    
+            $totalPrice = 0;
+    
+            foreach ($orders as $order) {
+                if ($order->getGame()->getPromotion() !== null) {
+                    $totalPrice += $order->getGame()->getPromotion() * $order->getQuantity(); 
+                } else {
+                    $totalPrice += $order->getGame()->getPrice() * $order->getQuantity();
+                }
+            }
+        
+            return $this->render('order/dashboard_admin.html.twig', [
+                'orders' => $orders,
+                'totalPrice' => $totalPrice,
+                'viewAllStores' => $viewAllStores,
+            ]);
         }
     
-        return $this->render('order/dashboard_admin.html.twig', [
-            'orders' => $orders,
-            'totalPrice' => $totalPrice,
+        throw $this->createAccessDeniedException('Vous n\avez pas les accès pour cette page.');
+    }
+
+    #[Route('/sales-details/{title}', name: 'app_sales_details')]
+    public function salesDetails(string $title, OrderRepository $orderRepository): Response
+    {
+        $orders = $orderRepository->findByGameTitle($title);
+        $details = [];
+
+        foreach ($orders as $order) {
+            $details[] = [
+                'date' => $order->getOrderDate(),
+                'quantity' => $order->getQuantity(),
+                'totalPrice' => $order->getGame()->getPromotion() !== null ? $order->getGame()->getPromotion() * $order->getQuantity() : $order->getGame()->getPrice() * $order->getQuantity()
+            ];
+        }
+
+        return $this->render('order/sales_details.html.twig', [
+            'title' => $title,
+            'details' => $details,
         ]);
     }
+
 }

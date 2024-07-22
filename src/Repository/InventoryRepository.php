@@ -30,5 +30,5 @@ class InventoryRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
 
         return $result ? (int) $result['quantity'] : 0;
-    }
+    } 
 }
