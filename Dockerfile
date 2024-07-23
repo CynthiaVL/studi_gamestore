@@ -1,23 +1,34 @@
-# Utilisez l'image officielle PHP avec Apache
+# Use the official PHP image with Apache
 FROM php:7.4-apache
 
-# Installez les extensions PHP requises
-RUN docker-php-ext-install pdo pdo_mysql
-
-# Activez les modules Apache nécessaires
-RUN a2enmod rewrite
-
-# Copiez votre code source dans le conteneur
-COPY . /var/www/html/
-
-# Définissez le répertoire de travail
+# Set working directory
 WORKDIR /var/www/html
 
-# Configurez Apache pour utiliser le répertoire public
-RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    libicu-dev \
+    libpq-dev \
+    && docker-php-ext-install \
+    intl \
+    opcache \
+    pdo \
+    pdo_mysql \
+    pdo_pgsql
 
-# Exposez le port 8080
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
+
+# Copy existing application directory contents
+COPY . /var/www/html
+
+# Copy Apache vhost file
+COPY ./docker/apache2.conf /etc/apache2/sites-available/000-default.conf
+
+# Ensure Apache listens on port 8080
+RUN echo "Listen 8080" >> /etc/apache2/ports.conf
+
+# Expose port 8080
 EXPOSE 8080
 
-# Démarrez Apache
+# Start Apache in the foreground
 CMD ["apache2-foreground"]
