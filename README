@@ -1,0 +1,66 @@
+# GameStore
+
+## Description
+
+GameStore est une application web responsive destinée à améliorer la visibilité d'une chaîne de magasins de jeux vidéo. Elle permet aux utilisateurs de rechercher et de réserver des jeux, de suivre leurs commandes et de profiter des promotions en cours. L'application offre également des outils de gestion pour les administrateurs et les employés, notamment la gestion des stocks et des commandes.
+
+## Fonctionnalités
+
+### Utilisateurs
+- **Recherche et réservation de jeux** : Trouvez facilement les jeux disponibles et réservez-les en ligne.
+- **Promotions et nouveautés** : Consultez les dernières promotions et les nouveaux jeux ajoutés.
+- **Gestion du panier** : Ajoutez des jeux à votre panier, modifiez les quantités et finalisez votre commande.
+- **Suivi des commandes** : Suivez l'état de vos commandes et consultez l'historique de vos achats.
+
+### Employés
+- **Gestion des stocks** : Ajoutez, modifiez et supprimez des jeux de l'inventaire du magasin.
+- **Gestion des commandes** : Validez et suivez les commandes des clients.
+
+### Administrateurs
+- **Vue globale des ventes** : Consultez les ventes pour tous les magasins ou un magasin spécifique.
+- **Détail des ventes** : Accédez à un tableau récapitulatif des ventes par date, nom d'article, nombre de ventes et prix total.
+- **Gestion des utilisateurs et des employés** : Créez et gérez les comptes des employés et des administrateurs.
+
+## Technologies utilisées
+
+- **Symfony** : Framework PHP utilisé pour le développement de l'application.
+- **MySQL** : Base de données relationnelle pour stocker les informations des utilisateurs, des jeux et des commandes.
+- **JawsDB MySQL** : Service de base de données MySQL pour l'hébergement sur Heroku.
+- **Bootstrap** : Framework CSS pour la création d'une interface utilisateur responsive.
+- **Twig** : Moteur de templates utilisé avec Symfony.
+
+## Installation
+
+### Prérequis
+
+- PHP >= 8.2
+- Composer
+- MySQL
+- Un compte Heroku
+
+### Étapes
+
+1. Clonez le dépôt GitHub :
+
+   git clone https://github.com/CynthiaVL/studi_gamestore.git
+   cd studi_gamestore
+
+2. Installez les dépendances PHP :
+
+    composer install
+
+3. Configurez les variables d'environnement :
+
+    Créez un fichier .env.local à la racine du projet et ajoutez les lignes suivantes :
+
+    DATABASE_URL=mysql://user:password@127.0.0.1:3306/studi_gamestore
+    Remplacez user et password par vos identifiants MySQL.
+
+4. Créer la base de donnée :
+
+    php bin/console doctrine:database:create
+    php bin/console doctrine:migrations:migrate
+
+5. Démarrer le server :
+
+    symfony server:start
