@@ -13,13 +13,13 @@ GameStore est une application web responsive destinée à améliorer la visibili
 - **Suivi des commandes** : Suivez l'état de vos commandes et consultez l'historique de vos achats.
 
 ### Employés
-- **Gestion des stocks** : Ajoutez, modifiez et supprimez des jeux de l'inventaire du magasin.
 - **Gestion des commandes** : Validez et suivez les commandes des clients.
 
 ### Administrateurs
 - **Vue globale des ventes** : Consultez les ventes pour tous les magasins ou un magasin spécifique.
 - **Détail des ventes** : Accédez à un tableau récapitulatif des ventes par date, nom d'article, nombre de ventes et prix total.
 - **Gestion des utilisateurs et des employés** : Créez et gérez les comptes des employés et des administrateurs.
+- **Gestion des stocks** : Ajoutez, modifiez et supprimez des jeux de l'inventaire du magasin.
 
 ## Technologies utilisées
 
