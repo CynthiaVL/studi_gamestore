@@ -53,7 +53,7 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
 # Exposer le port 80
-EXPOSE 80
+EXPOSE 8080
 
 # Démarrer nginx que le serveur php
 CMD nginx && php-fpm
