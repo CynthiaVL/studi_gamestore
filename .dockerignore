@@ -1,0 +1,830 @@
+# flyctl launch added from .gitignore
+
+###> symfony/framework-bundle ###
+.env.local
+.env.local.php
+.env.*.local
+config\secrets\prod\prod.decrypt.private.php
+public\bundles
+var
+vendor
+###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+phpunit.xml
+**\.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> symfony/phpunit-bridge ###
+**\.phpunit.result.cache
+phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/asset-mapper ###
+public\assets
+assets\vendor
+###< symfony/asset-mapper ###
+
+# flyctl launch added from mighty-oasis-08515\.gitignore
+
+###> symfony/framework-bundle ###
+mighty-oasis-08515\.env.local
+mighty-oasis-08515\.env.local.php
+mighty-oasis-08515\.env.*.local
+mighty-oasis-08515\config\secrets\prod\prod.decrypt.private.php
+mighty-oasis-08515\public\bundles
+mighty-oasis-08515\var
+mighty-oasis-08515\vendor
+###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+mighty-oasis-08515\phpunit.xml
+mighty-oasis-08515\**\.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> symfony/phpunit-bridge ###
+mighty-oasis-08515\**\.phpunit.result.cache
+mighty-oasis-08515\phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/asset-mapper ###
+mighty-oasis-08515\public\assets
+mighty-oasis-08515\assets\vendor
+###< symfony/asset-mapper ###
+
+# flyctl launch added from vendor\beberlei\doctrineextensions\.gitignore
+vendor\beberlei\doctrineextensions\**\.phpcs-cache
+vendor\beberlei\doctrineextensions\**\.phpunit.result.cache
+vendor\beberlei\doctrineextensions\composer.lock
+vendor\beberlei\doctrineextensions\tests\phpunit.xml
+vendor\beberlei\doctrineextensions\vendor
+
+# flyctl launch added from vendor\behat\transliterator\.gitignore
+vendor\behat\transliterator\**\vendor
+vendor\behat\transliterator\**\composer.lock
+vendor\behat\transliterator\**\phpunit.xml
+vendor\behat\transliterator\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\composer\semver\.gitignore
+vendor\composer\semver\vendor
+vendor\composer\semver\.php_cs.cache
+vendor\composer\semver\.phpunit.result.cache
+vendor\composer\semver\composer.lock
+
+# flyctl launch added from vendor\doctrine\cache\.gitignore
+vendor\doctrine\cache\**\vendor
+vendor\doctrine\cache\composer.lock
+vendor\doctrine\cache\**\build
+vendor\doctrine\cache\**\phpunit.xml
+vendor\doctrine\cache\.phpunit.result.cache
+vendor\doctrine\cache\**\clover.xml
+vendor\doctrine\cache\**\.phpcs-cache
+vendor\doctrine\cache\**\phpcs.xml
+
+# flyctl launch added from vendor\doctrine\collections\.gitignore
+vendor\doctrine\collections\composer.lock
+vendor\doctrine\collections\vendor
+vendor\doctrine\collections\build
+vendor\doctrine\collections\phpcs.xml
+vendor\doctrine\collections\.phpcs-cache
+vendor\doctrine\collections\.phpunit.result.cache
+
+# flyctl launch added from vendor\doctrine\common\.gitignore
+vendor\doctrine\common\**\logs
+vendor\doctrine\common\**\reports
+vendor\doctrine\common\**\dist
+vendor\doctrine\common\**\tests\Common\Proxy\generated
+vendor\doctrine\common\**\composer.lock
+vendor\doctrine\common\**\vendor
+vendor\doctrine\common\**\doctrine-common-*.tar
+vendor\doctrine\common\**\doctrine-common-*.tar.gz
+vendor\doctrine\common\phpcs.xml
+vendor\doctrine\common\.phpcs-cache
+vendor\doctrine\common\phpstan.neon
+vendor\doctrine\common\.phpunit.result.cache
+
+# flyctl launch added from vendor\doctrine\common\tests\.gitignore
+vendor\doctrine\common\tests\**\Proxies
+vendor\doctrine\common\tests\**\ORM\Proxy\generated
+vendor\doctrine\common\tests\**\ORM\Tools\Export\export
+
+# flyctl launch added from vendor\doctrine\dbal\.gitignore
+vendor\doctrine\dbal\composer.lock
+vendor\doctrine\dbal\**\.phpunit.result.cache
+vendor\doctrine\dbal\**\build
+vendor\doctrine\dbal\**\logs
+vendor\doctrine\dbal\**\reports
+vendor\doctrine\dbal\**\dist
+vendor\doctrine\dbal\**\download
+vendor\doctrine\dbal\**\vendor
+vendor\doctrine\dbal\*.phpunit.xml
+vendor\doctrine\dbal\phpunit.xml
+vendor\doctrine\dbal\.phpcs-cache
+vendor\doctrine\dbal\phpstan.neon
+vendor\doctrine\dbal\psalm.xml
+
+# flyctl launch added from vendor\doctrine\deprecations\.gitignore
+vendor\doctrine\deprecations\vendor
+vendor\doctrine\deprecations\**\.phpcs-cache
+vendor\doctrine\deprecations\**\.phpunit.result.cache
+vendor\doctrine\deprecations\**\composer.lock
+
+# flyctl launch added from vendor\doctrine\doctrine-bundle\.gitignore
+vendor\doctrine\doctrine-bundle\**\vendor
+vendor\doctrine\doctrine-bundle\**\composer.phar
+vendor\doctrine\doctrine-bundle\**\composer.lock
+vendor\doctrine\doctrine-bundle\**\phpunit.xml
+vendor\doctrine\doctrine-bundle\.phpunit.result.cache
+vendor\doctrine\doctrine-bundle\phpcs.xml
+vendor\doctrine\doctrine-bundle\.phpcs-cache
+
+# flyctl launch added from vendor\doctrine\doctrine-migrations-bundle\.gitignore
+vendor\doctrine\doctrine-migrations-bundle\vendor
+vendor\doctrine\doctrine-migrations-bundle\composer.lock
+vendor\doctrine\doctrine-migrations-bundle\.phpcs-cache
+vendor\doctrine\doctrine-migrations-bundle\.phpunit.result.cache
+
+
+# flyctl launch added from vendor\doctrine\event-manager\.gitignore
+vendor\doctrine\event-manager\vendor
+vendor\doctrine\event-manager\composer.lock
+vendor\doctrine\event-manager\phpunit.xml
+vendor\doctrine\event-manager\phpcs.xml
+vendor\doctrine\event-manager\.phpcs-cache
+vendor\doctrine\event-manager\.phpunit.cache
+
+# flyctl launch added from vendor\doctrine\inflector\.gitignore
+vendor\doctrine\inflector\vendor
+vendor\doctrine\inflector\composer.lock
+vendor\doctrine\inflector\composer.phar
+vendor\doctrine\inflector\phpunit.xml
+vendor\doctrine\inflector\.phpunit.result.cache
+vendor\doctrine\inflector\phpcs.xml
+vendor\doctrine\inflector\.phpcs-cache
+vendor\doctrine\inflector\phpstan.neon
+
+# flyctl launch added from vendor\doctrine\instantiator\.gitignore
+vendor\doctrine\instantiator\**\phpunit.xml
+vendor\doctrine\instantiator\.phpunit.result.cache
+vendor\doctrine\instantiator\**\build
+vendor\doctrine\instantiator\**\vendor
+vendor\doctrine\instantiator\composer.lock
+vendor\doctrine\instantiator\**\coverage.clover
+vendor\doctrine\instantiator\phpcs.xml
+vendor\doctrine\instantiator\.phpcs-cache
+vendor\doctrine\instantiator\phpstan.neon
+
+# flyctl launch added from vendor\doctrine\lexer\.gitignore
+vendor\doctrine\lexer\vendor
+vendor\doctrine\lexer\composer.lock
+vendor\doctrine\lexer\phpunit.xml
+vendor\doctrine\lexer\.phpunit.cache
+vendor\doctrine\lexer\phpcs.xml
+vendor\doctrine\lexer\.phpcs-cache
+
+# flyctl launch added from vendor\doctrine\migrations\.gitignore
+vendor\doctrine\migrations\**\build.properties
+vendor\doctrine\migrations\**\build
+vendor\doctrine\migrations\**\logs
+vendor\doctrine\migrations\**\reports
+vendor\doctrine\migrations\**\dist
+vendor\doctrine\migrations\**\tests\phpunit.xml
+vendor\doctrine\migrations\**\vendor
+vendor\doctrine\migrations\composer.lock
+vendor\doctrine\migrations\composer.lock.back
+vendor\doctrine\migrations\**\phpunit.xml
+vendor\doctrine\migrations\.phpunit.result.cache
+vendor\doctrine\migrations\phpcs.xml
+vendor\doctrine\migrations\phpstan.neon
+vendor\doctrine\migrations\.phpcs-cache
+vendor\doctrine\migrations\box.phar
+vendor\doctrine\migrations\box.json
+
+# Please don't add your IDE's files here, use global gitignore instead.
+
+# flyctl launch added from vendor\doctrine\orm\.gitignore
+vendor\doctrine\orm\**\build
+vendor\doctrine\orm\**\logs
+vendor\doctrine\orm\**\reports
+vendor\doctrine\orm\**\dist
+vendor\doctrine\orm\**\download
+vendor\doctrine\orm\.settings
+vendor\doctrine\orm\**\.buildpath
+vendor\doctrine\orm\**\.project
+vendor\doctrine\orm\**\.idea
+vendor\doctrine\orm\**\*.iml
+vendor\doctrine\orm\**\vendor
+vendor\doctrine\orm\tests\Doctrine\Performance\history.db
+vendor\doctrine\orm\.phpcs-cache
+vendor\doctrine\orm\**\composer.lock
+vendor\doctrine\orm\**\.phpunit.cache
+vendor\doctrine\orm\**\.phpunit.result.cache
+vendor\doctrine\orm\*.phpunit.xml
+
+# flyctl launch added from vendor\doctrine\orm\tests\.gitignore
+vendor\doctrine\orm\tests\**\Tests\Proxies
+vendor\doctrine\orm\tests\**\Tests\ORM\Proxy\generated
+vendor\doctrine\orm\tests\**\Tests\ORM\Tools\Export\export
+
+# flyctl launch added from vendor\doctrine\persistence\.gitignore
+vendor\doctrine\persistence\vendor
+vendor\doctrine\persistence\phpunit.xml
+vendor\doctrine\persistence\phpcs.xml
+vendor\doctrine\persistence\.phpcs-cache
+vendor\doctrine\persistence\.phpunit.result.cache
+vendor\doctrine\persistence\composer.lock
+
+# flyctl launch added from vendor\doctrine\sql-formatter\.gitignore
+vendor\doctrine\sql-formatter\.phpunit.cache
+vendor\doctrine\sql-formatter\.phpcs-cache
+vendor\doctrine\sql-formatter\vendor
+vendor\doctrine\sql-formatter\composer.lock
+
+# flyctl launch added from vendor\egulias\email-validator\.gitignore
+vendor\egulias\email-validator\**\build
+vendor\egulias\email-validator\**\report
+vendor\egulias\email-validator\**\vendor
+vendor\egulias\email-validator\**\composer.lock
+vendor\egulias\email-validator\**\phpunit.result.cache
+vendor\egulias\email-validator\**\.phpunit*
+vendor\egulias\email-validator\**\.idea
+vendor\egulias\email-validator\**\.vscode
+vendor\egulias\email-validator\**\.php-version
+
+# flyctl launch added from vendor\gedmo\doctrine-extensions\.gitignore
+vendor\gedmo\doctrine-extensions\**\.php-cs-fixer.cache
+vendor\gedmo\doctrine-extensions\**\bin
+vendor\gedmo\doctrine-extensions\**\vendor
+vendor\gedmo\doctrine-extensions\**\composer.lock
+vendor\gedmo\doctrine-extensions\**\phpstan.neon
+vendor\gedmo\doctrine-extensions\**\.phpunit.result.cache
+vendor\gedmo\doctrine-extensions\**\tests\phpunit.xml
+
+# flyctl launch added from vendor\guzzlehttp\guzzle\.gitignore
+vendor\guzzlehttp\guzzle\**\.php-cs-fixer.php
+vendor\guzzlehttp\guzzle\**\.php-cs-fixer.cache
+vendor\guzzlehttp\guzzle\**\.phpunit.result.cache
+vendor\guzzlehttp\guzzle\**\composer.lock
+vendor\guzzlehttp\guzzle\**\vendor
+vendor\guzzlehttp\guzzle\phpstan.neon
+vendor\guzzlehttp\guzzle\phpunit.xml
+
+vendor\guzzlehttp\guzzle\**\build
+vendor\guzzlehttp\guzzle\**\artifacts
+vendor\guzzlehttp\guzzle\**\docs\_build
+vendor\guzzlehttp\guzzle\**\docs\*.pyc
+
+# flyctl launch added from vendor\guzzlehttp\promises\.gitignore
+vendor\guzzlehttp\promises\**\artifacts
+vendor\guzzlehttp\promises\**\vendor
+vendor\guzzlehttp\promises\**\composer.lock
+vendor\guzzlehttp\promises\**\phpunit.xml
+vendor\guzzlehttp\promises\**\.php-cs-fixer.php
+vendor\guzzlehttp\promises\**\.php-cs-fixer.cache
+vendor\guzzlehttp\promises\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\guzzlehttp\psr7\.gitignore
+vendor\guzzlehttp\psr7\**\.php-cs-fixer.php
+vendor\guzzlehttp\psr7\**\.php-cs-fixer.cache
+vendor\guzzlehttp\psr7\**\.phpunit.result.cache
+vendor\guzzlehttp\psr7\**\composer.lock
+vendor\guzzlehttp\psr7\**\vendor
+vendor\guzzlehttp\psr7\phpstan.neon
+vendor\guzzlehttp\psr7\phpunit.xml
+
+# flyctl launch added from vendor\monolog\monolog\.gitignore
+vendor\monolog\monolog\**\vendor
+vendor\monolog\monolog\**\composer.phar
+vendor\monolog\monolog\**\phpunit.xml
+vendor\monolog\monolog\**\composer.lock
+vendor\monolog\monolog\**\.DS_Store
+vendor\monolog\monolog\**\.php-cs-fixer.cache
+vendor\monolog\monolog\**\.hg
+vendor\monolog\monolog\**\.phpunit.result.cache
+vendor\monolog\monolog\**\.phpunit.cache
+
+# flyctl launch added from vendor\phpdocumentor\reflection-common\.gitignore
+# IDE Shizzle; it is recommended to use a global .gitignore for this but since this is an OSS project we want to make
+# it easy to contribute
+vendor\phpdocumentor\reflection-common\**\.idea
+vendor\phpdocumentor\reflection-common\nbproject\private
+vendor\phpdocumentor\reflection-common\**\.buildpath
+vendor\phpdocumentor\reflection-common\**\.project
+vendor\phpdocumentor\reflection-common\**\.settings
+
+# Build folder and vendor folder are generated code; no need to version this
+vendor\phpdocumentor\reflection-common\**\build
+vendor\phpdocumentor\reflection-common\**\temp
+vendor\phpdocumentor\reflection-common\**\tools
+vendor\phpdocumentor\reflection-common\**\vendor
+vendor\phpdocumentor\reflection-common\**\*.phar
+
+# By default the phpunit.xml.dist is provided; you can override this using a local config file
+vendor\phpdocumentor\reflection-common\**\phpunit.xml
+
+# flyctl launch added from vendor\phpdocumentor\reflection-docblock\.gitignore
+# IDE Shizzle; it is recommended to use a global .gitignore for this but since this is an OSS project we want to make
+# it easy to contribute
+vendor\phpdocumentor\reflection-docblock\**\.idea
+vendor\phpdocumentor\reflection-docblock\nbproject\private
+vendor\phpdocumentor\reflection-docblock\**\.buildpath
+vendor\phpdocumentor\reflection-docblock\**\.project
+vendor\phpdocumentor\reflection-docblock\**\.settings
+
+# Build folder and vendor folder are generated code; no need to version this
+vendor\phpdocumentor\reflection-docblock\**\build
+vendor\phpdocumentor\reflection-docblock\**\temp
+vendor\phpdocumentor\reflection-docblock\**\tools
+vendor\phpdocumentor\reflection-docblock\**\vendor
+vendor\phpdocumentor\reflection-docblock\**\*.phar
+
+# By default the phpunit.xml.dist is provided; you can override this using a local config file
+vendor\phpdocumentor\reflection-docblock\**\phpunit.xml
+vendor\phpdocumentor\reflection-docblock\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\phpdocumentor\type-resolver\.gitignore
+# IDE Shizzle; it is recommended to use a global .gitignore for this but since this is an OSS project we want to make
+# it easy to contribute
+vendor\phpdocumentor\type-resolver\**\.idea
+vendor\phpdocumentor\type-resolver\nbproject\private
+vendor\phpdocumentor\type-resolver\**\.buildpath
+vendor\phpdocumentor\type-resolver\**\.project
+vendor\phpdocumentor\type-resolver\**\.settings
+
+# No need to version the binary files of other tools
+vendor\phpdocumentor\type-resolver\**\bin\behat*
+vendor\phpdocumentor\type-resolver\**\bin\phpcs*
+vendor\phpdocumentor\type-resolver\**\bin\phpunit*
+vendor\phpdocumentor\type-resolver\**\bin\jsonlint*
+vendor\phpdocumentor\type-resolver\**\bin\validate-json*
+vendor\phpdocumentor\type-resolver\**\temp\ecs\*
+
+# Build folder and vendor folder are generated code; no need to version this
+vendor\phpdocumentor\type-resolver\**\build
+vendor\phpdocumentor\type-resolver\**\tools
+vendor\phpdocumentor\type-resolver\**\vendor
+vendor\phpdocumentor\type-resolver\**\*.phar
+
+# By default the phpunit.xml.dist is provided; you can override this using a local config file
+vendor\phpdocumentor\type-resolver\**\phpunit.xml
+vendor\phpdocumentor\type-resolver\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\phpstan\phpdoc-parser\.gitignore
+vendor\phpstan\phpdoc-parser\docs
+vendor\phpstan\phpdoc-parser\temp
+vendor\phpstan\phpdoc-parser\tools
+vendor\phpstan\phpdoc-parser\tests\tmp
+vendor\phpstan\phpdoc-parser\build-cs
+vendor\phpstan\phpdoc-parser\vendor
+vendor\phpstan\phpdoc-parser\composer.lock
+vendor\phpstan\phpdoc-parser\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\phpstan\phpdoc-parser\apigen\.gitignore
+vendor\phpstan\phpdoc-parser\apigen\vendor
+
+# flyctl launch added from vendor\phpstan\phpdoc-parser\tmp\.gitignore
+vendor\phpstan\phpdoc-parser\tmp\**\*
+!vendor\phpstan\phpdoc-parser\tmp\**\cache
+!vendor\phpstan\phpdoc-parser\tmp\**\.*
+
+# flyctl launch added from vendor\phpstan\phpdoc-parser\tmp\cache\.gitignore
+vendor\phpstan\phpdoc-parser\tmp\cache\**\*
+!vendor\phpstan\phpdoc-parser\tmp\cache\**\.*
+
+# flyctl launch added from vendor\psr\clock\.gitignore
+vendor\psr\clock\vendor
+vendor\psr\clock\**\composer.lock
+
+# flyctl launch added from vendor\psr\container\.gitignore
+vendor\psr\container\**\composer.lock
+vendor\psr\container\**\composer.phar
+vendor\psr\container\vendor
+
+# flyctl launch added from vendor\psr\event-dispatcher\.gitignore
+vendor\psr\event-dispatcher\vendor
+vendor\psr\event-dispatcher\**\composer.lock
+
+# flyctl launch added from vendor\psr\http-factory\.gitignore
+vendor\psr\http-factory\**\composer.lock
+vendor\psr\http-factory\**\vendor
+
+# flyctl launch added from vendor\psr\link\.gitignore
+vendor\psr\link\**\build
+vendor\psr\link\**\composer.lock
+vendor\psr\link\**\docs
+vendor\psr\link\**\vendor
+
+# flyctl launch added from vendor\psr\log\.gitignore
+vendor\psr\log\**\vendor
+
+# flyctl launch added from vendor\ralouphie\getallheaders\.gitignore
+vendor\ralouphie\getallheaders\**\.idea
+vendor\ralouphie\getallheaders\**\.DS_store
+vendor\ralouphie\getallheaders\vendor
+vendor\ralouphie\getallheaders\**\composer.phar
+vendor\ralouphie\getallheaders\**\composer.lock
+
+# flyctl launch added from vendor\stof\doctrine-extensions-bundle\.gitignore
+vendor\stof\doctrine-extensions-bundle\**\composer.lock
+vendor\stof\doctrine-extensions-bundle\**\vendor\*
+vendor\stof\doctrine-extensions-bundle\phpunit.xml
+vendor\stof\doctrine-extensions-bundle\.phpunit.result.cache
+
+# flyctl launch added from vendor\symfony\asset\.gitignore
+vendor\symfony\asset\**\vendor
+vendor\symfony\asset\**\composer.lock
+vendor\symfony\asset\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\asset-mapper\.gitignore
+vendor\symfony\asset-mapper\**\vendor
+vendor\symfony\asset-mapper\**\composer.lock
+vendor\symfony\asset-mapper\**\phpunit.xml
+vendor\symfony\asset-mapper\**\Tests\Fixtures\var
+
+# flyctl launch added from vendor\symfony\cache\.gitignore
+vendor\symfony\cache\**\composer.lock
+vendor\symfony\cache\**\phpunit.xml
+vendor\symfony\cache\**\vendor
+
+# flyctl launch added from vendor\symfony\cache-contracts\.gitignore
+vendor\symfony\cache-contracts\**\vendor
+vendor\symfony\cache-contracts\**\composer.lock
+vendor\symfony\cache-contracts\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\clock\.gitignore
+vendor\symfony\clock\**\vendor
+vendor\symfony\clock\**\composer.lock
+vendor\symfony\clock\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\config\.gitignore
+vendor\symfony\config\**\vendor
+vendor\symfony\config\**\composer.lock
+vendor\symfony\config\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\console\.gitignore
+vendor\symfony\console\**\vendor
+vendor\symfony\console\**\composer.lock
+vendor\symfony\console\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\dependency-injection\.gitignore
+vendor\symfony\dependency-injection\**\vendor
+vendor\symfony\dependency-injection\**\composer.lock
+vendor\symfony\dependency-injection\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\deprecation-contracts\.gitignore
+vendor\symfony\deprecation-contracts\**\vendor
+vendor\symfony\deprecation-contracts\**\composer.lock
+vendor\symfony\deprecation-contracts\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\doctrine-bridge\.gitignore
+vendor\symfony\doctrine-bridge\**\vendor
+vendor\symfony\doctrine-bridge\**\composer.lock
+vendor\symfony\doctrine-bridge\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\doctrine-messenger\.gitignore
+vendor\symfony\doctrine-messenger\**\vendor
+vendor\symfony\doctrine-messenger\**\composer.lock
+vendor\symfony\doctrine-messenger\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\dotenv\.gitignore
+vendor\symfony\dotenv\**\vendor
+vendor\symfony\dotenv\**\composer.lock
+vendor\symfony\dotenv\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\error-handler\.gitignore
+vendor\symfony\error-handler\**\vendor
+vendor\symfony\error-handler\**\composer.lock
+vendor\symfony\error-handler\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\event-dispatcher\.gitignore
+vendor\symfony\event-dispatcher\**\vendor
+vendor\symfony\event-dispatcher\**\composer.lock
+vendor\symfony\event-dispatcher\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\event-dispatcher-contracts\.gitignore
+vendor\symfony\event-dispatcher-contracts\**\vendor
+vendor\symfony\event-dispatcher-contracts\**\composer.lock
+vendor\symfony\event-dispatcher-contracts\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\expression-language\.gitignore
+vendor\symfony\expression-language\**\vendor
+vendor\symfony\expression-language\**\composer.lock
+vendor\symfony\expression-language\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\filesystem\.gitignore
+vendor\symfony\filesystem\**\vendor
+vendor\symfony\filesystem\**\composer.lock
+vendor\symfony\filesystem\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\finder\.gitignore
+vendor\symfony\finder\**\vendor
+vendor\symfony\finder\**\composer.lock
+vendor\symfony\finder\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\finder\Tests\Fixtures\gitignore\.gitignore
+vendor\symfony\finder\Tests\Fixtures\gitignore\**\c.txt
+
+# flyctl launch added from vendor\symfony\finder\Tests\Fixtures\gitignore\git_root\search_root\.gitignore
+vendor\symfony\finder\Tests\Fixtures\gitignore\git_root\search_root\a.txt
+
+# flyctl launch added from vendor\symfony\finder\Tests\Fixtures\gitignore\git_root\search_root\dir\.gitignore
+vendor\symfony\finder\Tests\Fixtures\gitignore\git_root\search_root\dir\b.txt
+
+# flyctl launch added from vendor\symfony\finder\Tests\Fixtures\gitignore\search_root\.gitignore
+vendor\symfony\finder\Tests\Fixtures\gitignore\search_root\a.txt
+
+# flyctl launch added from vendor\symfony\finder\Tests\Fixtures\gitignore\search_root\dir\.gitignore
+vendor\symfony\finder\Tests\Fixtures\gitignore\search_root\dir\b.txt
+
+# flyctl launch added from vendor\symfony\flex\.gitignore
+vendor\symfony\flex\vendor
+vendor\symfony\flex\build
+vendor\symfony\flex\**\.phpunit.result.cache
+vendor\symfony\flex\**\.php_cs.cache
+vendor\symfony\flex\**\composer.lock
+
+# flyctl launch added from vendor\symfony\form\.gitignore
+vendor\symfony\form\**\vendor
+vendor\symfony\form\**\composer.lock
+vendor\symfony\form\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\framework-bundle\.gitignore
+vendor\symfony\framework-bundle\**\vendor
+vendor\symfony\framework-bundle\**\composer.lock
+vendor\symfony\framework-bundle\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\http-client\.gitignore
+vendor\symfony\http-client\**\vendor
+vendor\symfony\http-client\**\composer.lock
+vendor\symfony\http-client\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\http-client-contracts\.gitignore
+vendor\symfony\http-client-contracts\**\vendor
+vendor\symfony\http-client-contracts\**\composer.lock
+vendor\symfony\http-client-contracts\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\http-foundation\.gitignore
+vendor\symfony\http-foundation\**\vendor
+vendor\symfony\http-foundation\**\composer.lock
+vendor\symfony\http-foundation\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\http-kernel\.gitignore
+vendor\symfony\http-kernel\**\vendor
+vendor\symfony\http-kernel\**\composer.lock
+vendor\symfony\http-kernel\**\phpunit.xml
+vendor\symfony\http-kernel\**\Tests\Fixtures\cache
+vendor\symfony\http-kernel\**\Tests\Fixtures\logs
+
+# flyctl launch added from vendor\symfony\intl\.gitignore
+vendor\symfony\intl\**\vendor
+vendor\symfony\intl\**\composer.lock
+vendor\symfony\intl\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\mailer\.gitignore
+vendor\symfony\mailer\**\vendor
+vendor\symfony\mailer\**\composer.lock
+vendor\symfony\mailer\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\messenger\.gitignore
+vendor\symfony\messenger\**\vendor
+vendor\symfony\messenger\**\composer.lock
+vendor\symfony\messenger\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\mime\.gitignore
+vendor\symfony\mime\**\composer.lock
+vendor\symfony\mime\**\phpunit.xml
+vendor\symfony\mime\**\vendor
+
+# flyctl launch added from vendor\symfony\monolog-bridge\.gitignore
+vendor\symfony\monolog-bridge\**\vendor
+vendor\symfony\monolog-bridge\**\composer.lock
+vendor\symfony\monolog-bridge\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\monolog-bundle\.gitignore
+vendor\symfony\monolog-bundle\**\vendor
+vendor\symfony\monolog-bundle\**\composer.phar
+vendor\symfony\monolog-bundle\**\composer.lock
+vendor\symfony\monolog-bundle\**\phpunit.xml
+vendor\symfony\monolog-bundle\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\symfony\notifier\.gitignore
+vendor\symfony\notifier\**\composer.lock
+vendor\symfony\notifier\**\phpunit.xml
+vendor\symfony\notifier\**\vendor
+
+# flyctl launch added from vendor\symfony\options-resolver\.gitignore
+vendor\symfony\options-resolver\**\vendor
+vendor\symfony\options-resolver\**\composer.lock
+vendor\symfony\options-resolver\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\password-hasher\.gitignore
+vendor\symfony\password-hasher\**\vendor
+vendor\symfony\password-hasher\**\composer.lock
+vendor\symfony\password-hasher\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\process\.gitignore
+vendor\symfony\process\**\vendor
+vendor\symfony\process\**\composer.lock
+vendor\symfony\process\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\property-access\.gitignore
+vendor\symfony\property-access\**\vendor
+vendor\symfony\property-access\**\composer.lock
+vendor\symfony\property-access\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\property-info\.gitignore
+vendor\symfony\property-info\**\vendor
+vendor\symfony\property-info\**\composer.lock
+vendor\symfony\property-info\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\routing\.gitignore
+vendor\symfony\routing\**\vendor
+vendor\symfony\routing\**\composer.lock
+vendor\symfony\routing\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\runtime\.gitignore
+vendor\symfony\runtime\**\vendor
+vendor\symfony\runtime\**\composer.lock
+vendor\symfony\runtime\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\security-bundle\.gitignore
+vendor\symfony\security-bundle\**\vendor
+vendor\symfony\security-bundle\**\composer.lock
+vendor\symfony\security-bundle\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\security-core\.gitignore
+vendor\symfony\security-core\**\vendor
+vendor\symfony\security-core\**\composer.lock
+vendor\symfony\security-core\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\security-csrf\.gitignore
+vendor\symfony\security-csrf\**\vendor
+vendor\symfony\security-csrf\**\composer.lock
+vendor\symfony\security-csrf\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\security-http\.gitignore
+vendor\symfony\security-http\**\vendor
+vendor\symfony\security-http\**\composer.lock
+vendor\symfony\security-http\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\serializer\.gitignore
+vendor\symfony\serializer\**\vendor
+vendor\symfony\serializer\**\composer.lock
+vendor\symfony\serializer\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\service-contracts\.gitignore
+vendor\symfony\service-contracts\**\vendor
+vendor\symfony\service-contracts\**\composer.lock
+vendor\symfony\service-contracts\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\stimulus-bundle\.gitignore
+vendor\symfony\stimulus-bundle\**\.php-cs-fixer.cache
+vendor\symfony\stimulus-bundle\**\.phpunit.result.cache
+vendor\symfony\stimulus-bundle\**\composer.lock
+vendor\symfony\stimulus-bundle\**\vendor
+vendor\symfony\stimulus-bundle\**\tests\fixtures\var
+
+# flyctl launch added from vendor\symfony\stopwatch\.gitignore
+vendor\symfony\stopwatch\**\vendor
+vendor\symfony\stopwatch\**\composer.lock
+vendor\symfony\stopwatch\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\string\.gitignore
+vendor\symfony\string\**\composer.lock
+vendor\symfony\string\**\phpunit.xml
+vendor\symfony\string\**\vendor
+
+# flyctl launch added from vendor\symfony\translation\.gitignore
+vendor\symfony\translation\**\vendor
+vendor\symfony\translation\**\composer.lock
+vendor\symfony\translation\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\translation-contracts\.gitignore
+vendor\symfony\translation-contracts\**\vendor
+vendor\symfony\translation-contracts\**\composer.lock
+vendor\symfony\translation-contracts\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\twig-bridge\.gitignore
+vendor\symfony\twig-bridge\**\vendor
+vendor\symfony\twig-bridge\**\composer.lock
+vendor\symfony\twig-bridge\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\twig-bundle\.gitignore
+vendor\symfony\twig-bundle\**\vendor
+vendor\symfony\twig-bundle\**\composer.lock
+vendor\symfony\twig-bundle\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\type-info\.gitignore
+vendor\symfony\type-info\**\vendor
+vendor\symfony\type-info\**\composer.lock
+vendor\symfony\type-info\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\ux-turbo\.gitignore
+vendor\symfony\ux-turbo\.php_cs.cache
+vendor\symfony\ux-turbo\.php_cs
+vendor\symfony\ux-turbo\.phpunit.result.cache
+vendor\symfony\ux-turbo\composer.phar
+vendor\symfony\ux-turbo\composer.lock
+vendor\symfony\ux-turbo\phpunit.xml
+vendor\symfony\ux-turbo\vendor
+vendor\symfony\ux-turbo\tests\app\var
+vendor\symfony\ux-turbo\tests\app\public\build
+vendor\symfony\ux-turbo\**\node_modules
+vendor\symfony\ux-turbo\**\package-lock.json
+vendor\symfony\ux-turbo\**\yarn.lock
+
+# flyctl launch added from vendor\symfony\validator\.gitignore
+vendor\symfony\validator\**\vendor
+vendor\symfony\validator\**\composer.lock
+vendor\symfony\validator\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\var-dumper\.gitignore
+vendor\symfony\var-dumper\**\composer.lock
+vendor\symfony\var-dumper\**\phpunit.xml
+vendor\symfony\var-dumper\**\vendor
+
+# flyctl launch added from vendor\symfony\var-exporter\.gitignore
+vendor\symfony\var-exporter\**\composer.lock
+vendor\symfony\var-exporter\**\phpunit.xml
+vendor\symfony\var-exporter\**\vendor
+
+# flyctl launch added from vendor\symfony\web-link\.gitignore
+vendor\symfony\web-link\**\vendor
+vendor\symfony\web-link\**\composer.lock
+vendor\symfony\web-link\**\phpunit.xml
+
+# flyctl launch added from vendor\symfony\yaml\.gitignore
+vendor\symfony\yaml\**\vendor
+vendor\symfony\yaml\**\composer.lock
+vendor\symfony\yaml\**\phpunit.xml
+
+# flyctl launch added from vendor\twig\extra-bundle\.gitignore
+vendor\twig\extra-bundle\**\vendor
+vendor\twig\extra-bundle\**\var
+vendor\twig\extra-bundle\**\composer.lock
+vendor\twig\extra-bundle\**\phpunit.xml
+vendor\twig\extra-bundle\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\twig\twig\.gitignore
+vendor\twig\twig\doc\_build\vendor
+vendor\twig\twig\doc\_build\output
+vendor\twig\twig\composer.lock
+vendor\twig\twig\phpunit.xml
+vendor\twig\twig\vendor
+vendor\twig\twig\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\twig\twig\extra\cache-extra\.gitignore
+vendor\twig\twig\extra\cache-extra\**\vendor
+vendor\twig\twig\extra\cache-extra\**\composer.lock
+vendor\twig\twig\extra\cache-extra\**\phpunit.xml
+vendor\twig\twig\extra\cache-extra\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\twig\twig\extra\cssinliner-extra\.gitignore
+vendor\twig\twig\extra\cssinliner-extra\**\vendor
+vendor\twig\twig\extra\cssinliner-extra\**\composer.lock
+vendor\twig\twig\extra\cssinliner-extra\**\phpunit.xml
+vendor\twig\twig\extra\cssinliner-extra\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\twig\twig\extra\html-extra\.gitignore
+vendor\twig\twig\extra\html-extra\**\vendor
+vendor\twig\twig\extra\html-extra\**\composer.lock
+vendor\twig\twig\extra\html-extra\**\phpunit.xml
+vendor\twig\twig\extra\html-extra\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\twig\twig\extra\inky-extra\.gitignore
+vendor\twig\twig\extra\inky-extra\**\vendor
+vendor\twig\twig\extra\inky-extra\**\composer.lock
+vendor\twig\twig\extra\inky-extra\**\phpunit.xml
+vendor\twig\twig\extra\inky-extra\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\twig\twig\extra\intl-extra\.gitignore
+vendor\twig\twig\extra\intl-extra\**\vendor
+vendor\twig\twig\extra\intl-extra\**\composer.lock
+vendor\twig\twig\extra\intl-extra\**\phpunit.xml
+vendor\twig\twig\extra\intl-extra\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\twig\twig\extra\markdown-extra\.gitignore
+vendor\twig\twig\extra\markdown-extra\**\vendor
+vendor\twig\twig\extra\markdown-extra\**\composer.lock
+vendor\twig\twig\extra\markdown-extra\**\phpunit.xml
+vendor\twig\twig\extra\markdown-extra\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\twig\twig\extra\string-extra\.gitignore
+vendor\twig\twig\extra\string-extra\**\vendor
+vendor\twig\twig\extra\string-extra\**\composer.lock
+vendor\twig\twig\extra\string-extra\**\phpunit.xml
+vendor\twig\twig\extra\string-extra\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\twig\twig\extra\twig-extra-bundle\.gitignore
+vendor\twig\twig\extra\twig-extra-bundle\**\vendor
+vendor\twig\twig\extra\twig-extra-bundle\**\var
+vendor\twig\twig\extra\twig-extra-bundle\**\composer.lock
+vendor\twig\twig\extra\twig-extra-bundle\**\phpunit.xml
+vendor\twig\twig\extra\twig-extra-bundle\**\.phpunit.result.cache
+
+# flyctl launch added from vendor\webmozart\assert\.gitignore
+vendor\webmozart\assert\**\vendor
+vendor\webmozart\assert\composer.lock
+vendor\webmozart\assert\**\.phpunit.result.cache
+vendor\webmozart\assert\**\.php_cs.cache
+fly.toml

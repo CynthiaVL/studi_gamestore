@@ -1,10 +1,13 @@
-# fly.toml app configuration file generated for studi-gamestore on 2024-07-23T11:11:49+02:00
+# fly.toml app configuration file generated for studi-gamestore on 2024-08-05T16:24:01+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'studi-gamestore'
 primary_region = 'cdg'
+
+[build]
+  image = 'php:8.2-apache'
 
 [http_service]
   internal_port = 8080
@@ -13,6 +16,21 @@ primary_region = 'cdg'
   auto_start_machines = true
   min_machines_running = 0
   processes = ['app']
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 8080
+
+  [[services.ports]]
+    port = 80
+
+  [[services.ports]]
+    port = 443
+
+  [[services.tcp_checks]]
+    interval = '10s'
+    timeout = '2s'
+    grace_period = '5s'
 
 [[vm]]
   memory = '1gb'
