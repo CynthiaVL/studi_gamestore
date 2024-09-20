@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <div class="hero-scene">
+        <div class="text-center hero-scene-content secondary">
+            <h1>Inscription</h1>
+        </div>
+    </div>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.firstName, {
+            label:'Prénom : '
+        }) }}
+        {{ form_row(registrationForm.lastName, {
+            label:'Nom : '
+        }) }}
+        {{ form_row(registrationForm.birthdate, {
+            label:'Date d\'aniversaire : '
+        }) }}
+        {{ form_row(registrationForm.adress, {
+            label:'Adresse : '
+        })}}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Mot de passe : '
+        }) }}
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ form_row(registrationForm.roles)}}
+        {% endif %}
+        {{ form_row(registrationForm.agreeTerms, {
+            label: 'Accepter les conditions'
+        }) }}
+
+        <button type="submit" class="btn">Enregistrer</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}

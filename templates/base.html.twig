@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {% block stylesheets %}
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        {% endblock %}
+    </head>
+    <body>
+        {% for label, messages in app.flashes %}
+            <div class="flash-{{ label }}">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        {% if app.session.get('selected_store') %}
+            <p>Selected Store ID: {{ app.session.get('selected_store') }}</p>
+        {% endif %}
+
+        {% block header %}
+            <header>
+                <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+                    <div class="container-fluid">
+                        <a class="navbar-brand secondary" href="/">GameStore</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                                <li class="nav-item"><a class="nav-link secondary" href="/">Accueil</a></li>
+                                <li class="nav-item"><a class="nav-link secondary" href="{{ path('app_game_index') }}">Nos jeux</a></li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Créer un compte</a></li>
+                                    <li class="nav-item dropdown" data-show="connected">
+                                        <a class="nav-link dropdown-toggle secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon espace</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="{{ path('app_dashboard_admin') }}">Dashboard</a></li>
+                                            <li><a class="dropdown-item secondary" href="{{ path('app_basket') }}">Mon panier</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('app_user_profile') }}">Mes infos</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a href="{{ path('app_logout') }}" class="dropdown-item danger" type="button" id="/logout">Se déconnecter</a></li>
+                                        </ul>
+                                    </li>
+                                {% elseif is_granted('ROLE_STAFF') %}
+                                    <li class="nav-item dropdown" data-show="connected">
+                                        <a class="nav-link dropdown-toggle secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon espace</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="{{ path('app_dashboard') }}">Dashboard</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('app_user_profile') }}">Mes infos</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a href="{{ path('app_logout') }}" class="dropdown-item danger" type="button" id="/logout">Se déconnecter</a></li>
+                                        </ul>
+                                    </li>
+                                {% elseif is_granted('ROLE_USER') %}
+                                    <li class="nav-item dropdown secondary" data-show="connected">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon espace</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item secondary" href="{{ path('app_basket') }}" data-show="user">Mon panier</a></li>
+                                            <li><a class="dropdown-item secondary" href="{{ path('app_user_profile') }}">Mes infos</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a href="{{ path('app_logout') }}" class="dropdown-item sesondary" type="button" id="/logout">Se déconnecter</a></li>
+                                        </ul>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item" data-show="disconnected"><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+                    <div class="container-fluid">
+                        <form class="d-flex ms-auto" role="search">
+                            <input class="form-control me-2" id="game-search" type="search" placeholder="Rechercher un jeu" aria-label="Search">
+                            <button class="btn btn-primary" type="submit">Rechercher</button>
+                        </form>
+                    </div>
+                </nav>
+            </header>
+        {% endblock %}
+
+        {% block body %}
+            <div class="hero-scene">
+                <div class="text-center hero-scene-content secondary">
+                    <h1>GameStore</h1>
+                    <a class="btn btn-primary" href="{{ path('app_store_index') }}">Trouver mon magasin</a>
+                </div>
+            </div>
+
+            <section>
+                <article>
+                    <div class="container-1 p-4">
+                        <h2 class="text-center primary p-4">Bienvenue sur GameStore</h2>
+                        <div class="justify-content-center text-center text-dark">
+                            <p>Bienvenue sur GameStore, une boutique unique pour s'immerger dans l'univers des jeux vidéos. <br> Venez découvrir tous nos jeux!</p>
+                            <p>Aucun paiement en ligne! <br> Trouvez la boutique la plus près de chez vous, réservez un jeu en directement sur le site, et venez le chercher près de chez vous! <br> Le paiement ne se fait qu'à ce moment là!</p>
+                        </div>
+                        <div class="text-center">
+                            <a class="btn btn-primary m-4" href="{{ path('app_store_index') }}">Nos magasins</a>
+                        </div>
+                    </div>
+                </article>
+                <article>
+                    <div class="container-2 p-4">
+                        <h2 class="text-center p-4 text-purple">Nos Promotions</h2>
+                            <div class="row">
+                                {% if promotedGames is not null %}
+                                    {% for game in promotedGames %}
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card h-100">
+                                                <div class="card-body text-center">
+                                                    <h5 class="card-title"><strong>{{ game.title }}</strong></h5>
+                                                    <div class="image mb-3">
+                                                        <img class="image-game img-fluid" src="{{ asset('images/' ~ game.image) }}" alt="{{ game.title }}">
+                                                    </div>
+                                                    <p class="description"><strong>Description: </strong>{{ game.content }}</p>
+                                                    <p class="release-date"><strong>Date de sortie: </strong>{{ game.releaseDate ? game.releaseDate|date('d-m-Y') : '' }}</p>
+                                                    <p class="promotion"><strong>Prix : </strong><s>{{ game.price }}€</s> {{ game.promotion }}€ </p>
+                                                    <p class="pegi"><strong>Age requis: </strong>{{ game.pegi }} ans</p>
+                                                    <p class="genre"><strong>Genre: </strong>{{ game.genre|join(', ') }}</p>
+                                                    <p class="platform"><strong>Plateforme: </strong>{{ game.platform|join(', ') }}</p>
+                                                    {% if is_granted('ROLE_USER') %}
+                                                        <div class="basket-btn">
+                                                            <button type="button" class="btn btn-success"><i class="bi bi-bag-plus-fill"></i></button>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        {% if not is_granted('ROLE_USER') %}
+                            <div class="text-center">
+                                <a class="btn btn-secondary m-4" href="{{ path('app_login') }}">Profitez-en vite ! Connectez-vous !</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </article>
+                <article>
+                    <div class="container-1 p-4">
+                        <h2 class="text-center primary p-4">Les nouveautés</h2>
+                        <div class="row">
+                            {% if recentGames is defined %}
+                                {% for game in recentGames %}
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card h-100">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title"><strong>{{ game.title }}</strong></h5>
+                                                <div class="image mb-3">
+                                                    <img class="image-game img-fluid" src="{{ asset('images/' ~ game.image) }}" alt="{{ game.title }}">
+                                                </div>
+                                                <p class="description"><strong>Description: </strong>{{ game.content }}</p>
+                                                {% if game.promotion is not null %}
+                                                    <p class="promotion"><strong>Prix : </strong><s>{{ game.price }}€</s> {{ game.promotion }}€ </p>
+                                                {% else %}
+                                                    <p class="price"><strong>Prix: </strong>{{ game.price }}€</p>
+                                                {% endif %}
+                                                <p class="pegi"><strong>Age requis: </strong>{{ game.pegi }} ans</p>
+                                                <p class="genre"><strong>Genre: </strong>{{ game.genre|join(', ') }}</p>
+                                                {% if is_granted('ROLE_USER') %}
+                                                    <div class="basket-btn">
+                                                        <button type="button" class="btn btn-success"><i class="bi bi-bag-plus-fill"></i></button>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="text-center">
+                            <a class="btn btn-primary m-4" href="{{ path('app_game_index') }}">Nos jeux</a>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        {% endblock %}
+
+        {% block footer %}
+        <footer class="bg-dark text-white text-center footer">
+            <div class="row">
+                <div class="col-12 col-lg-4">
+                    <h3 class="secondary mt-3"> Nos horaires</h3>
+                    <p class="tertiary">Du <strong><u>Mardi</u></strong> au <strong><u>Samedi</u></strong> <br> De <strong><u>9h à 19h</u></strong></p>
+                </div>
+                <div class="col-6 col-lg-4">
+                    <h3 class="secondary mt-3">Contact</h3>
+                    <p class="tertiary"><a href="{{ path('app_store_index') }}">Nos magasins</a></p>
+                    <p class="tertiary"><a href="#">Mentions légales</a></p>
+                </div>
+                <div class="col-6 col-lg-4">
+                    <h3 class="secondary mt-3">ECF</h3>
+                    <p class="tertiary"><strong>Vanlaer Cynthia</strong> <br>Novembre/Décembre 2024</p>
+                </div>
+            </div>
+        </footer>
+        {% endblock %}
+    </body>
+</html>

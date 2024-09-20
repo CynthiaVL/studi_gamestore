@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails des Ventes - {{ title }}{% endblock %}
+
+{% block body %}
+    <div class="hero-scene">
+        <div class="text-center hero-scene-content secondary">
+            <h1>Détails des Ventes - {{ title }}</h1>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <h2>Ventes pour {{ title }}</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Quantité</th>
+                    <th>Prix Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detail in details %}
+                    <tr>
+                        <td>{{ detail.date|date('d-m-Y') }}</td>
+                        <td>{{ detail.quantity }}</td>
+                        <td>{{ detail.totalPrice }}€</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

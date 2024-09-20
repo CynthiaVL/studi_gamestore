@@ -1,0 +1,25 @@
+# config/services.yaml
+
+parameters:
+    google_api_key: 'AIzaSyBfm9oxRt_6dloALYE2hWR2_JQiD-q_YaU'
+    images_directory: '%kernel.project_dir%/public/images'
+
+services:
+    # Configuration par défaut pour les services dans ce fichier
+    _defaults:
+        autowire: true      # Injection automatique des dépendances dans vos services.
+        autoconfigure: true # Enregistrement automatique de vos services en tant que commandes, abonnés d'événements, etc.
+
+    # Configuration spécifique des services
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # Définition des services personnalisés
+    App\Controller\RegistrationController:
+        arguments:
+            $googleApiKey: '%google_api_key%'
+        # Autres configurations de votre service, si nécessaire

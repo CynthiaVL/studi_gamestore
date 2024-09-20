@@ -1,0 +1,122 @@
+body {
+    background-color: skyblue;
+    font-family: "Times New Roman", Times, serif;
+}
+
+.primary {
+    color : rgb(143, 4, 143);
+}
+
+.btn-primary {
+    border: none;
+    background-color: rgb(143, 4, 143);
+    color: white;
+}
+
+.secondary {
+    color : greenyellow;
+}
+
+.tertiary {
+    color: skyblue;
+}
+
+.btn-secondary {
+    border: none;
+    color: black;
+    background-color: greenyellow;
+}
+
+.danger {
+    color: red;
+}
+
+.modal-content {
+    background-color: rgb(1, 80, 111);
+    color: greenyellow;
+}
+
+.container-2 {
+    background-color: rgb(1, 80, 111);
+    color: greenyellow;
+}
+
+.container-1 {
+    background-color: skyblue;
+    color: rgb(143, 4, 143);
+}
+
+.card{
+    background-color: rgb(1, 80, 111);
+    color: skyblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    margin-bottom: 3;
+    .card-title{
+        color: greenyellow;
+    }
+    strong {
+        color: greenyellow;
+    }
+    button {
+        background-color: rgb(202, 3, 202);
+        color: white;
+        border: none;
+    }
+    
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.card-body .image {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.card-body .description,
+.card-body .pegi,
+.card-body .genre,
+.card-body .price,
+.card-body .promotion {
+    margin-bottom: 10px;
+}
+
+.image-game {
+    max-width: 100%;
+    height: auto;
+}
+
+.hero-scene {
+    position: relative;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url(./img/manette.jpg);
+        background-size: cover;
+        filter : brightness(0.7);
+    }
+    * {
+        position: relative;
+    }
+    .hero-scene-content {
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos magasins{% endblock %}
+
+{% block body %}
+    <h1>Nos magasins</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ store.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ store.name }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ store.image }}</td>
+            </tr>
+            <tr>
+                <th>Heure d'ouverture</th>
+                <td>{{ store.openTime ? store.openTime|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Heure de fermeture</th>
+                <td>{{ store.closeTime ? store.closeTime|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Créé le</th>
+                <td>{{ store.createdAt ? store.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Modifier le</th>
+                <td>{{ store.updatedAt ? store.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_store_index') }}">Retourner à la liste</a>
+
+    <a href="{{ path('app_store_edit', {'id': store.id}) }}">Modifier</a>
+
+    {{ include('store/_delete_form.html.twig') }}
+{% endblock %}

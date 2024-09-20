@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Magasins{% endblock %}
+
+{% block body %}
+    <div class="hero-scene">
+        <div class="text-center hero-scene-content secondary">
+            <h1>Nos Magasins</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for store in stores %}
+            <div class="col-md-4 mb-3">
+                <div class="card m-3">
+                    <div class="card-body text-center">
+                        <h5 class="card-title"><strong>{{ store.name }}</strong></h5>
+                        <div class="image">
+                            {% if store.image %}
+                                <img class="image-game" src="{{ asset('images/' ~ store.image) }}" alt="{{ store.name }}" width="300">
+                            {% elseif store.imageUrl %}
+                                <img class="image-game" src="{{ store.imageUrl }}" alt="{{ store.name }}" width="300">
+                            {% endif %}
+                        </div>
+                        {% if store.adress %}
+                            <p><strong>Adresse :</strong> {{ store.adress.street }}, <br> {{ store.adress.city }}, {{ store.adress.postalCode }}</p>
+                        {% else %}
+                            <p>Pas d'adresse définie pour ce magasin.</p>
+                        {% endif %}
+                        <p><strong>Ouvert du :</strong> <br> Mardi au Samedi <br> {{ store.openTime|date('H:i') }} - {{ store.closeTime|date('H:i') }}</p>
+                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#storeModal{{ store.id }}">Voir le magasin</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('app_store_edit', {'id': store.id}) }}" class="btn btn-info">Modifier</a>
+                            <a href="{{ path('app_store_delete', {'id': store.id}) }}" class="btn btn-danger">Supprimer</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="storeModal{{ store.id }}" tabindex="-1" aria-labelledby="storeModalLabel{{ store.id }}" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="storeModalLabel{{ store.id }}">{{ store.name }}</h5>
+                  </div>
+                  <div class="modal-body justify-content text-center">
+                    <div>
+                        <iframe width="300" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBfm9oxRt_6dloALYE2hWR2_JQiD-q_YaU&q={{ store.adress.latitude }},{{ store.adress.longitude }}" allowfullscreen></iframe>
+                    </div>
+                    {% if store.adress %}
+                        <p><strong>Adresse :</strong> {{ store.adress.street }}, <br> {{ store.adress.city }}, {{ store.adress.postalCode }}</p>
+                    {% else %}
+                        <p>Pas d'adresse définie pour ce magasin.</p>
+                    {% endif %}
+                    <p><strong>Ouvert du :</strong> <br> Mardi au Samedi <br> {{ store.openTime|date('H:i') }} - {{ store.closeTime|date('H:i') }}</p>
+                    
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        {% else %}
+            <div class="col">
+                <p>Aucun magasin trouvé.</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class='text-center'>
+        <a href="{{ path('app_store_new') }}" class="btn btn-primary m-4">Ajouter un magasin</a>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Magasin{% endblock %}
+
+{% block body %}
+    <h1>Créer un magasin</h1>
+
+    {{ include('store/_form.html.twig') }}
+
+    <a href="{{ path('app_store_index') }}">Retourner à la liste</a>
+{% endblock %}
