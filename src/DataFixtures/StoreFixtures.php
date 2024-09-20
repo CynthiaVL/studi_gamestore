@@ -13,8 +13,8 @@ class StoreFixtures extends Fixture implements DependentFixtureInterface{
         $adresses = [
             'Bordeaux' => $this->getReference('Adress-Bordeaux'),
             'Paris' => $this->getReference('Adress-Paris'),
-            'Lyon' => $this->getReference('Adress-Toulouse'),
-            'Marseille' => $this->getReference('Adress-Lille'),
+            'Toulouse' => $this->getReference('Adress-Toulouse'),
+            'Lille' => $this->getReference('Adress-Lille'),
             'Nantes' => $this->getReference('Adress-Nantes'),
         ];
 

@@ -122,7 +122,7 @@ class Adress
         return $this;
     }
 
-    public function getStore(): Store
+    public function getStore(): ?Store
     {
         return $this->store;
     }

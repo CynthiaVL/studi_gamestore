@@ -91,7 +91,7 @@ class GameFixtures extends Fixture {
                 ->setImage($gameData['image']);
 
             $manager->persist($game);
-            $this->addReference("game-" .strtolower(str_replace(' ', '-', $gameData['title'])), $game);
+            $this->addReference("game-" .str_replace(' ', '-', $gameData['title']), $game);
         }
 
     $manager->flush();

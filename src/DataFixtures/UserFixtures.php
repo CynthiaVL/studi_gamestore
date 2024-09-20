@@ -29,7 +29,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface{
                 ->setFirstname($faker->firstName)
                 ->setLastname($faker->lastName)
                 ->setBirthdate($faker->dateTimeBetween('-60 years', '-18 years'))
-                ->setAdress($this->getReference('adress-' . strtolower($faker->city)))
+                ->setAdress($this->getReference('Adress-Bordeaux'))
                 ->setPassword($this->passwordHasher->hashPassword($user, $password));
 
             if ($i === 0) {

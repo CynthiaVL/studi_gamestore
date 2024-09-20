@@ -23,19 +23,19 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
         ];
 
         $games = [
-            'game-mario' => $this->getReference('game-mario'),
-            'game-zelda' => $this->getReference('game-zelda'),
-            'game-call-of-duty' => $this->getReference('game-call-of-duty'),
-            'game-fifa' => $this->getReference('game-fifa'),
-            'game-the-witcher' => $this->getReference('game-the-witcher'),
-            'game-minecraft' => $this->getReference('game-minecraft'),
+            'game-mario' => $this->getReference('game-Mario'),
+            'game-zelda' => $this->getReference('game-Zelda'),
+            'game-call-of-duty' => $this->getReference('game-Call-of-Duty'),
+            'game-fifa' => $this->getReference('game-FIFA-2023'),
+            'game-the-witcher' => $this->getReference('game-The-Witcher-3'),
+            'game-minecraft' => $this->getReference('game-Minecraft'),
         ];
 
         $stores = [
             'Bordeaux' => $this->getReference('Store-Bordeaux'),
             'Paris' => $this->getReference('Store-Paris'),
-            'Lyon' => $this->getReference('Store-Toulouse'),
-            'Marseille' => $this->getReference('Store-Lille'),
+            'Toulouse' => $this->getReference('Store-Toulouse'),
+            'Lille' => $this->getReference('Store-Lille'),
             'Nantes' => $this->getReference('Store-Nantes'),
         ];
 

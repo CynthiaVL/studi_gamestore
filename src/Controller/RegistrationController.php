@@ -72,7 +72,7 @@ class RegistrationController extends AbstractController
             // Utilisation de l'API Google Maps pour géocoder l'Addresse
             $response = $this->httpClient->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json', [
                 'query' => [
-                    'address' => $Adress->getStreet() . ', ' . $Adress->getCity(),
+                    'adress' => $Adress->getStreet() . ', ' . $Adress->getCity(),
                     'key' => $this->googleApiKey,
                 ],
             ]);
@@ -94,7 +94,7 @@ class RegistrationController extends AbstractController
                 dump($Adress); // Vérifiez l'Addresse mise à jour
             } else {
                 // Gestion de l'erreur si le géocodage échoue
-                $this->addFlash('error', 'Unable to geocode the Address.');
+                $this->addFlash('error', 'Unable to geocode the Adress.');
             }
         }
     }
