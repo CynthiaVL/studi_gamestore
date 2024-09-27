@@ -19,7 +19,7 @@ class GameFixtures extends Fixture {
                 'promotion' => null,
                 'platform' => ['ordinateur', 'wii', 'PSP'],
                 'releaseDate' => '1998-01-01',
-                'image' => 'mario.jpg',
+                'image' => 'game/mario.jpg',
             ],
             [
                 'title' => 'Zelda',
@@ -30,7 +30,7 @@ class GameFixtures extends Fixture {
                 'promotion' => 25,
                 'platform' => ['Switch', 'Wii'],
                 'releaseDate' => '2017-03-03',
-                'image' => 'zelda.jpg',
+                'image' => 'game/zelda.png',
             ],
             [
                 'title' => 'Call of Duty',
@@ -41,7 +41,7 @@ class GameFixtures extends Fixture {
                 'promotion' => null,
                 'platform' => ['PC', 'PS5', 'Xbox'],
                 'releaseDate' => '2020-11-13',
-                'image' => 'call_of_duty.jpg',
+                'image' => 'game/callof.jpg',
             ],
             [
                 'title' => 'FIFA 2023',
@@ -52,7 +52,7 @@ class GameFixtures extends Fixture {
                 'promotion' => 40,
                 'platform' => ['PC', 'PS5', 'Xbox'],
                 'releaseDate' => '2023-09-30',
-                'image' => 'fifa2023.jpg',
+                'image' => 'game/fifa.jpg',
             ],
             [
                 'title' => 'The Witcher 3',
@@ -63,7 +63,7 @@ class GameFixtures extends Fixture {
                 'promotion' => null,
                 'platform' => ['PC', 'PS4', 'Switch'],
                 'releaseDate' => '2015-05-19',
-                'image' => 'the_witcher_3.jpg',
+                'image' => 'game/the_witcher.jpg',
             ],
             [
                 'title' => 'Minecraft',
@@ -74,7 +74,7 @@ class GameFixtures extends Fixture {
                 'promotion' => 15,
                 'platform' => ['PC', 'Xbox', 'Switch'],
                 'releaseDate' => '2011-11-18',
-                'image' => 'minecraft.jpg',
+                'image' => 'game/minecraft.jpg',
             ],
         ];
 

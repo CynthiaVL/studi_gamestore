@@ -31,6 +31,20 @@ class GameController extends AbstractController
         $games = $gameRepository->findAll();
         $stores = $storeRepository->findAll();
         $users = $userRepository->findAll();
+        $genresData = $gameRepository->findAllGenre();
+        
+        $allGenres = [];
+
+        foreach ($genresData as $genreArray) {
+            foreach ($genreArray['genre'] as $genre) {
+                $genre = ucfirst($genre);
+                if (!in_array($genre, $allGenres)) {
+                    $allGenres[] = $genre;
+                }
+            }
+        }
+
+        sort($allGenres);
     
         // Initialiser $store à null
         $store = null;
@@ -68,13 +82,14 @@ class GameController extends AbstractController
             // Redirection vers la même page après la sélection du magasin
             return $this->redirectToRoute('app_game_index');
         }
-    
+        
         // Affichage de la page d'accueil des jeux avec les jeux et les magasins disponibles
         return $this->render('game/index.html.twig', [
             'games' => $games,
             'stores' => $stores,
             'users' => $users,
             'quantities' => $quantities, 
+            'genres' => $allGenres,
         ]);
     }
 

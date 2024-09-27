@@ -39,9 +39,9 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
             'Nantes' => $this->getReference('Store-Nantes'),
         ];
 
-        $statuses = ['pending', 'completed', 'canceled'];
+        $statuses = ['pending', 'validated', 'completed', 'canceled'];
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 15; $i++) {
             $orderDate = new \DateTime('now - ' . rand(1, 30) . ' days');
             $pickupDate = (clone $orderDate)->modify('+ ' . rand(1, 5) . ' days');
 

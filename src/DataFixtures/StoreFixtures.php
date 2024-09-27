@@ -28,7 +28,8 @@ class StoreFixtures extends Fixture implements DependentFixtureInterface{
             ->setOpenTime($openTime)
             ->setCloseTime($closeTime)
             ->setCreatedAt(new \DateTimeImmutable())
-            ->setImage('images/store.images/' . strtolower($city) . '.jpg');
+            ->setImage('/store/' . strtolower($city) . '.jpg')
+            ->setImageUrl('/images/store/' . strtolower($city) . '.jpg');;
 
             $manager->persist($store);
             $this->addReference("Store-" .$city, $store);

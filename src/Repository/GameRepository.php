@@ -44,4 +44,12 @@ class GameRepository extends ServiceEntityRepository
                 ->getOneOrNullResult()
             ;
         }
+
+        public function findAllGenre()
+        {
+            return $this->createQueryBuilder('g')
+                ->select('g.genre')
+                ->getQuery()
+                ->getResult();
+        }
 }
