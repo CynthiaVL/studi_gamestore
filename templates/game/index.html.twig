@@ -21,6 +21,29 @@
             </form>
         </div>
     {% endif %}
+    <div class="filter">
+        <form action="" method="get" class='filter-form'>
+            <div class="filter-group">
+                <select name="select-price" id="select-price">
+                    <option value="noChoice">Prix</option>
+                    <option value="0-15">0 à 15€</option>
+                    <option value="15-30">15 à 30€</option>
+                    <option value="30-45">30 à 45€</option>
+                    <option value="45-60">45 à 60€</option>
+                    <option value="60+">60€ et plus</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <select name="select-genre" id="select-genre">
+                    <option value="noChoice">Genre</option>
+                    {% for genre in genres %}
+                        <option value="{{ genre }}">{{ genre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type='submit' class='btn btn-secondary btn-filter'>GO</button>
+        </form>
+    </div>
     <div class="row">
         {% for game in games %}
             <div class="col-md-4 mt-3 mb-3">
@@ -84,7 +107,7 @@
                             {% endif %}
                         </div>
                         <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                         </div>
                     </div>
                 </div>
